@@ -1,0 +1,535 @@
+
+.main-cadastrar-obras{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+
+
+.main-cadastrar-obras-model{
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+    background-color: #000;
+}
+
+.ativo{
+    display: flex;
+}
+
+
+
+.main-cadastrar-obras-funcoes{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-cadastrar-obras-funcoes-botoes{
+    width: 100%;
+    height: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-cadastrar-obras-funcoes-botoes div{
+    width: 23%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3%;
+    cursor: pointer;
+}
+
+.deletar svg{
+    background-color: #DC143C;
+    color: #fff;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.deletar h3{
+    border-bottom: 2px solid #DC143C;
+    padding-bottom: 3px;
+}
+
+.publicar svg{
+    background-color: #53e90e;
+    color: #fff;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.publicar h3{
+    border-bottom: 2px solid #53e90e;
+    padding-bottom: 3px;
+}
+
+.editar svg{
+    background-color: #4F4F4F;
+    color: #fff;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.editar h3{
+    border-bottom: 2px solid #4F4F4F;
+    padding-bottom: 3px;
+}
+
+
+.main-cadastrar-obras-funcoes-vazio{
+    width: 100%;
+    height:90%;
+    background-image: url('../../Images/escolha-opcoes.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30%;
+}
+.main-cadastrar-obras-lista{
+    width: 50%;
+    height: 100%;
+}
+
+
+
+.main-cadastrar-obras-opcoes{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.cadastrar-autores{
+    width: 30%;
+    height: 45%;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    z-index: 1;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.cadastrar-autores-titulo{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #4F4F4F;
+    position: relative;
+}
+
+.cadastrar-autores-titulo > h1 {
+    position: absolute;
+    right: 5%;
+    cursor: pointer;
+}
+
+.cadastrar-autores-input{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.cadastrar-autores-input > p{
+    width: 82%;
+    height: 25%;
+    display: flex;
+    align-items: center;
+}
+
+.cadastrar-autores-input > input{
+    width: 80%;
+    height: 20%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background-color: #D8D8D8;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.cadastrar-autores-msg{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cadastrar-autores-btn{
+    width: 100%;
+    height: 29%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cadastrar-autores-btn > button{
+    width: 30%;
+    height: 50%;
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: #53e90e; 
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    font-size: 1.1rem;
+}
+
+.main-cadastrar-obras-publicar-itens{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.main-cadastrar-obras-publicar-itens-titulo{
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.main-cadastrar-obras-publicar-itens-titulo > button{
+    background-color: #53e90e;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+.main-cadastrar-obras-publicar-itens-titulo h2{
+    border-bottom: 2px solid #53e90e;
+    padding-bottom: 3px;
+}
+
+.main-cadastrar-obras-publicar-itens-mensagem{
+    width: 60%;
+    height: 10%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.main-cadastrar-obras-publicar-itens-titulo-obra, .main-cadastrar-obras-publicar-itens-autores{
+    width: 95%;
+    height: 17.5%;
+}
+
+.main-cadastrar-obras-publicar-itens-titulo-obra > h3{
+    width: 95%;
+    margin: 2% 1% 0% 2%;
+}
+
+.main-cadastrar-obras-publicar-itens-titulo-obra > input{
+    width: 95%;
+    background-color: #D8D8D8;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin: 1% 0 2% 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+
+.main-cadastrar-obras-publicar-itens-autores > h3{
+    width: 95%;
+    margin: 2% 1% 0% 2%;
+}
+
+.main-cadastrar-obras-publicar-itens-autores > select{
+    width: 85%;
+    background-color: #D8D8D8;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin: 1% 0 2% 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.main-cadastrar-obras-publicar-itens-autores > button{
+    width: 8%;
+    height: 45%;
+    margin-left: 4%;
+    border: none;
+    background-color: #53e90e;
+    color: #fff;
+    font-weight: bold;
+    font-size: 2rem;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    cursor: pointer;
+}
+
+.main-cadastrar-obras-publicar-itens-resumo{
+    width: 95%;
+    height: 45%;
+    border-radius: 20px;
+}
+.main-cadastrar-obras-publicar-itens-resumo > h3{
+    width: 95%;
+    margin: 2% 1% 0% 2%;
+}
+
+.main-cadastrar-obras-publicar-itens-resumo > textarea{
+    max-width: 94%;
+    min-width: 94%;
+    min-height: 70%;
+    max-height: 70%;
+    padding: 10px;
+    margin: 1% 0 2% 0;
+    text-orientation: initial;
+    font-weight: bold;
+    font-size: 1.2rem;
+    background: none;
+    border: none;
+    outline: none;
+    background-color: #D8D8D8;
+    border-radius: 10px;
+    resize: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.main-cadastrar-obras-publicar-itens-resumo > textarea::-webkit-scrollbar {
+    width: 10px;               /* width of the entire scrollbar */
+    
+}
+
+.main-cadastrar-obras-publicar-itens-resumo > textarea::-webkit-scrollbar-thumb {
+    background-color: #a7a2a2;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+}
+
+
+.main-cadastrar-obras-publicar-itens-descricao{
+    width: 95%;
+    height: 92%;
+}
+
+.main-cadastrar-obras-publicar-itens-descricao > h3{
+    width: 95%;
+    margin: 2% 1% 0% 2%;
+}
+
+.main-cadastrar-obras-publicar-itens-descricao > textarea{
+    max-width: 94%;
+    min-width: 94%;
+    max-height: 85%;
+    min-height: 85%;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 1% 0 2% 0;
+    text-orientation: initial;
+    font-weight: bold;
+    font-size: 1.2rem;
+    background: none;
+    border: none;
+    outline: none;
+    background-color: #D8D8D8;
+    resize: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.main-cadastrar-obras-publicar-itens-descricao > textarea::-webkit-scrollbar {
+    width: 10px;               /* width of the entire scrollbar */
+    
+}
+
+.main-cadastrar-obras-publicar-itens-descricao > textarea::-webkit-scrollbar-thumb {
+    background-color: #a7a2a2;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+}
+
+.main-cadastrar-obras-deletar{
+    width: 100%;
+    height: 100%;
+    display: flex;   
+}
+.main-cadastrar-obras-deletar-conteudo{
+    width: 70%;
+    height: 100%;
+    
+}
+.main-cadastrar-obras-deletar-conteudo-pesquisa{
+    width: 45%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.main-cadastrar-obras-deletar-conteudo-pesquisa-input{
+    width: 70%;
+}
+
+.main-cadastrar-obras-deletar-conteudo-pesquisa-input > input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #53e90e;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+.main-cadastrar-obras-deletar-conteudo-pesquisa-btn {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.main-cadastrar-obras-deletar-conteudo-pesquisa-btn svg{
+    background-color: #53e90e;
+    padding: 10px;
+    border-radius: 10px;
+    border-style: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+
+.main-cadastrar-obras-deletar-container{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cadastrar-obras-deletar-container-lista-bloco {
+    width: 80%;
+    height: 95%;
+    display: flex;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;;
+}
+
+.main-cadastrar-obras-deletar-container-titulo {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #53e90e;
+}
+
+
+.main-cadastrar-obras-deletar-container-lista {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2%;
+}
+
+.main-cadastrar-obras-deletar-container-lista-bloco-titulo {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #4F4F4F;
+}
+
+
+.main-cadastrar-obras-deletar-container-lista-bloco-titulo > h3 {
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.main-cadastrar-obras-deletar-conteudo-obras{
+    width: 95%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main-cadastrar-obras-deletar-conteudo-obras img{
+    width: 40%;
+}
+.main-cadastrar-obras-deletar-conteudo-obras h3{
+    color: #4F4F4F;
+}
+.main-cadastrar-obras-deletar-conteudo-obras-caixa{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: auto;
+    margin-bottom: 3%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;;
+}
+.main-cadastrar-obras-deletar-conteudo-obras-caixa-titulo{
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.main-cadastrar-obras-deletar-conteudo-obras-caixa-titulo svg{
+    padding: 10px;
+    cursor: pointer;
+    background-color: #DC143C;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.main-cadastrar-obras-deletar-conteudo-obras-caixa-resumo{
+    width: 90%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-bottom: 10px;
+}
+
+.main-cadastrar-obras-deletar-conteudo-obras-caixa-resumo h3, .main-cadastrar-obras-deletar-conteudo-obras-caixa-resumo p{
+    color: #4F4F4F;
+}
+
