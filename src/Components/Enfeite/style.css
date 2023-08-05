@@ -1,0 +1,62 @@
+.circulo-um {
+  width: 25%;
+  height: 45%;
+  background-color: #349A46;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0 100% 100% 0;
+  z-index: 0;
+}
+
+.circulo-dois {
+  width: 25%;
+  height: 45%;
+  background-color: #349A46;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 100% 0 0 100%;
+  z-index: 0;
+}
+
+.tracos {
+  width: 1.6%;
+  height: 1.1%;
+  position: absolute;
+  background-color: #349A46;
+  z-index: 1;
+  border-radius: 20px;
+}
+
+.traco1 {
+  top: 60%;
+  left: 1%;
+}
+
+.traco2 {
+  height: 0.6%;
+  left: 4%;
+  bottom: 1%;
+}
+
+.traco3 {
+  height: 0.6%;
+  left: 30.2%;
+  bottom: 15%;
+}
+
+.traco4 {
+  top: 4%;
+  left: 40%;
+}
+
+.traco5 {
+  top: 30%;
+  right: 0.5%;
+}
+
+.traco6 {
+  top: 40%;
+  right: 1.5%;
+}/*# sourceMappingURL=style.css.map */

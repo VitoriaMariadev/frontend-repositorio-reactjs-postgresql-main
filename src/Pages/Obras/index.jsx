@@ -4,17 +4,18 @@ import { api } from '../../Services/API'
 import { useState, useEffect, useRef } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 import Header from '../../Components/Header';
-
+import { Enfeite } from '../../Components/Enfeite';
 
 export const Obras = () => {
     
 
     
     return (
-        <>
-
+        <>     
             <Header></Header>
+            
             <main className="main-obras">
+                <Enfeite/>
                 <div className="main-obras-todas">
                     <div className="main-obras-todas-container">
                         <div className="main-obras-todas-container-mostrar">

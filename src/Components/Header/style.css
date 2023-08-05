@@ -1,3 +1,7 @@
+* {
+  padding: 0;
+}
+
 .container {
   width: 100%;
   height: 10vh;
@@ -23,30 +27,109 @@
 }
 
 .container-navbar {
-  width: 40%;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
+
+.container-navbar > ul {
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
 
-.container-navbar a {
+.container-navbar > ul > il {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-navbar > ul > il:hover ul {
+  display: flex;
+}
+
+.container-navbar > ul > il > a > ul {
+  display: none;
+  position: absolute;
+  background-color: #349A46;
+  width: 25%;
+  height: 250%;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  color: #fff;
+  z-index: 1;
+  transform: translate(-10%, 14%);
+  box-shadow: -3px 4px 10px 2px rgba(0, 0, 0, 0.25);
+}
+
+.container-navbar > ul > il > a > ul > il {
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.container-navbar > ul > il > a > ul > il > a {
+  font-size: 1rem;
+  font-weight: 100;
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-navbar > ul > il > a > ul > il > h3 {
+  width: 80%;
+  height: 75%;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  border-bottom: solid 1px #fff;
+  color: #fff;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.container-navbar > ul > il > a > ul > il > a:hover {
+  padding-bottom: 0;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+}
+
+.container-navbar > ul > il > a > ul > il > a.active {
+  padding-bottom: 0;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+}
+
+.container-navbar ul > il > a {
   color: #2f4f4f;
   text-decoration: none;
   font-size: 1rem;
   font-family: sans-serif;
   font-weight: bold;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  position: relative;
 }
 
-.container-navbar a:hover {
+.container-navbar ul > il > a:hover {
   color: #53e90e;
   padding-bottom: 1px;
   border-bottom: 2px solid #53e90e;
 }
 
-.container-navbar a.active {
+.container-navbar ul > il > a.active {
   color: #53e90e;
   padding-bottom: 1px;
   border-bottom: 2px solid #53e90e;
@@ -58,6 +141,18 @@
   border-radius: 10px;
   cursor: pointer;
   color: #fff;
+}
+
+.container-navbar > a > ul {
+  position: absolute;
+  bottom: -100%;
+  background-color: #349A46;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .container-navbar-mobile {
