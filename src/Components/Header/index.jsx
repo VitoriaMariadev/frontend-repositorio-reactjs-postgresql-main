@@ -48,6 +48,8 @@ function Header (){
             <div className='container-logo'>
                 <img src={Logo} alt='logo'/>
             </div>
+
+
             <nav className='container-navbar'>
                 {/* {usuario && usuario.tipo_de_usuario === 'admin'?( */}
                 {usuario != null?(
@@ -55,7 +57,7 @@ function Header (){
                         <NavLink to="/">Inicio</NavLink>
                         <NavLink to="/Obras">Obras</NavLink>
                         <NavLink to="/Biografia">Biografia</NavLink>
-                        <NavLink to="/Configurar_Obras">Configurar obras</NavLink>
+                        <NavLink to="/Configurar_Obras" className="configurar-obras">Configurar obras</NavLink>
                         <NavLink to="/Cadastrar_Usuario">Cadastrar Usuario</NavLink>
                         <NavLink to="/Homenagens">Homenagens</NavLink>
                     </>

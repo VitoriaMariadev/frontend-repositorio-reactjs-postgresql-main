@@ -8,76 +8,37 @@ import Header from '../../Components/Header';
 
 export const Obras = () => {
     
-    const containerPesquisaObras = useRef(null)
-    const [ Obras, setObras] = useState()
-    const [Carregando, setCarregando] = useState(false)
-    const [titulo,setTitulo] = useState('')
-    const [encontrado, setEncontrado] = useState(true)
 
-    const pegarObras = async () => {
-        try {
-            
-            const res = await api.get("/mostrar_todas_obras")
-            setObras(res.data)
-            console.log(res.data)
-            setCarregando(true)
-        }
-        catch (erro){
-            console.log(erro)
-        }
-    }
-
-    const pesquisarObra = async () =>{
-
-        try{
-
-            const res = await api.post("/pesquisar_nome_obra", {titulo})
-            if (res.data.mensagem === 'Obra(s) não encontrado(s)') {
-                setEncontrado(false)
-                
-              } else {
-                setObras(res.data)
-                setEncontrado(true)
-                window.scrollTo(0,0)
-              }
-
-            
-            
-
-        }catch(err){
-            console.log(err)
-        }
-
-    }
-
-    useEffect(() => {
-        pegarObras()
-    }, 
-    [])
-
-    useEffect(() =>{
-
-        containerPesquisaObras.current?.scrollIntoView({behavior: "smooth"})
-    })
-    
-    useEffect(() => {
-        document.addEventListener('keydown', detectKeyDown, true)
-   
-    }, [titulo])
-    const detectKeyDown = (e) => {
-        if (e.key === 'Enter'){
-            pesquisarObra()
-        }
-    }
-
-    useEffect(() => {
-        pesquisarObra()
-    }, [titulo])
     
     return (
         <>
-            
-        
+
+            <Header></Header>
+            <main className="main-obras">
+                <div className="main-obras-todas">
+                    <div className="main-obras-todas-container">
+                        <div className="main-obras-todas-container-mostrar">
+                            <div className="main-obras-todas-container-mostrar-titulo">
+                                <h1>TITULOS</h1>
+                            </div>
+
+                            <div className="main-obras-todas-container-mostrar-container"></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="main-obras-ver">
+                    <div className="main-obras-ver-container">
+                        <div className="main-obras-ver-container-mostrar">
+                            <div className="main-obras-ver-container-mostrar-titulo">
+                                <h1>CAPISTRANO DE ABREU</h1>
+                            </div>
+
+                            <div className="main-obras-ver-container-mostrar-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
         </>
     )
 }
