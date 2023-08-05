@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 import Header from '../../Components/Header';
 import { Enfeite } from '../../Components/Enfeite';
+import {BsFilter} from 'react-icons/bs'
 
 export const Obras = () => {
     
@@ -23,7 +24,20 @@ export const Obras = () => {
                                 <h1>TITULOS</h1>
                             </div>
 
-                            <div className="main-obras-todas-container-mostrar-container"></div>
+                            <div className="main-obras-todas-container-mostrar-container">
+                                <div className="main-obras-todas-container-mostrar-container-pesquisa">
+                                    <div className="main-obras-todas-container-mostrar-container-pesquisa-lupa">
+                                        <AiOutlineSearch/>
+                                    </div>
+                                    <div className="main-obras-todas-container-mostrar-container-pesquisa-barra">
+                                        <input placeholder='Procurar título' type="text"/>
+                                    </div>
+                                    <div className="main-obras-todas-container-mostrar-container-pesquisa-filtro">
+                                        <BsFilter/>
+                                    </div>
+                                </div>
+                                <div className="main-obras-todas-container-mostrar-container-obras"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
