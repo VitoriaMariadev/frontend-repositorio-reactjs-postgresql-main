@@ -8,25 +8,86 @@ import { Enfeite } from '../../Components/Enfeite';
 import {BsFilter} from 'react-icons/bs'
 
 export const Obras = () => {
+    const containerObras = useRef(null)
     const [carregando, setCarregando] = useState(false)
     const [pegarObras, setPegarObras] = useState('')
+    const [pegarObraId, setPegarObraId] = useState('')
+    const [carregandoId, setCarregandoId] = useState(false)
+    const [titulo, setTitulo] = useState('')
+    const [pesquisarTitulo, setPesquisarTitulo] = useState('')
+    const [obraNaoEncontrada, setObraNaoEncontrada] = useState(false)
+    const [modelFiltro, setModelFiltro] = useState(false)
 
-    const obras = async () => {
+    // Pegar Obras Por Id
+
+    const pesquisarObraPorNome = async () => {
+        const data = {
+            titulo:pesquisarTitulo
+        }
+
         try {
+
+            const res = await api.post('/pesquisar_nome_obra', data)
+
+            if (res.data.status === 400){
+                setObraNaoEncontrada(true)
+            }else{
+                setCarregando(true)
+                setPegarObras(res.data)
+                setObraNaoEncontrada(false)
+            }
             
-            const res = await api.get('/mostrar_todas_obras')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const pegarObraPorId = async (id) => {
+
+        try {
+            const res = await api.get('/mostrar_obraid/' + id)
+            setPegarObraId(res.data)
+            setCarregandoId(true)
+            setTitulo(res.data.titulo)
             console.log(res.data)
-            setPegarObras(res.data)
-            setCarregando(true)
+            containerObras.current.scrollTo({ top: 0, behavior: 'smooth' })
 
         } catch (error) {
             console.log(error)
         }
     }
 
+    const obras = async () => {
+        try {
+            
+            const res = await api.get('/mostrar_todas_obras')
+            setPegarObras(res.data)
+            setCarregando(true)
+            console.log(res.data)
+            
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // Abrir Model
+
+    const abrirModelFiltro = () => {
+        if(modelFiltro){
+            setModelFiltro(false)
+        }else{
+            setModelFiltro(true)
+        }
+    }
+
     useEffect(() => {
         obras()
     }, [])
+
+    useEffect(() => {
+        pesquisarObraPorNome()
+    }, [pesquisarTitulo])
 
     return (
         <>     
@@ -43,40 +104,76 @@ export const Obras = () => {
 
                             <div className="main-obras-todas-container-mostrar-container">
                                 <div className="main-obras-todas-container-mostrar-container-pesquisa">
-                                    <div className="main-obras-todas-container-mostrar-container-pesquisa-lupa">
+                                    <div onClick={pesquisarObraPorNome}  className="main-obras-todas-container-mostrar-container-pesquisa-lupa">
                                         <AiOutlineSearch/>
                                     </div>
                                     <div className="main-obras-todas-container-mostrar-container-pesquisa-barra">
-                                        <input placeholder='Procurar título' type="text"/>
+                                        <input placeholder='Procurar título' type="text" value={pesquisarTitulo} onChange={(e) => setPesquisarTitulo(e.target.value)}/>
                                     </div>
-                                    <div className="main-obras-todas-container-mostrar-container-pesquisa-filtro">
+                                    <div className="main-obras-todas-container-mostrar-container-pesquisa-filtro" onClick={abrirModelFiltro}>
                                         <BsFilter/>
                                     </div>
                                 </div>
                                 <div className="main-obras-todas-container-mostrar-container-obras">
-                                    {carregando?(
-
-                                        pegarObras.map((item, index) => (
-                                            <>
-                                                <div className="main-obras-todas-container-mostrar-container-obras-container">
-                                                    <div className="main-obras-todas-container-mostrar-container-obras-container-titulo">
-                                                        <h3>{item.titulo}</h3>
-                                                    </div>
-
-                                                    <div className="main-obras-todas-container-mostrar-container-obras-container-paragrafo">
-                                                        <p>{item.resumo}</p>
-                                                    </div>
-
-                                                    <div className="main-obras-todas-container-mostrar-container-obras-container-rodape">
-                                                        <p>{item.usuario}, {item.data_publi.slice(0,4)}</p>
-                                                    </div>
+                                    {modelFiltro?(
+                                        <>
+                                        
+                                            <h2 className='filtros'>FILTROS</h2>
+                                            <div className="main-obras-todas-container-mostrar-container-obras-classificacao">
+                                                <p>Classificação</p>
+                                                <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes">
                                                     
                                                 </div>
-                                            </>
-                                        ))
-
+                                            </div>
+                                        </>
                                     ):(
-                                        <p>Carregando...</p>
+                                    <>
+                                        {carregando?(
+
+                                            obraNaoEncontrada?(
+                                                <div className="obra-nao-encontrada">
+
+                                                    <p >Obra não encontrada</p>
+                                                </div>
+                                                
+                                            ):(
+                                                <>
+                                                    {pegarObras.map((item, index) => (
+                                                    <>
+                                                        <div className="main-obras-todas-container-mostrar-container-obras-container" key={index}>
+                                                            <div className="main-obras-todas-container-mostrar-container-obras-container-titulo">
+                                                                <h3 onClick={() => pegarObraPorId(item.id_obra)} >{item.titulo}</h3>
+                                                            </div>
+
+                                                            <div className="main-obras-todas-container-mostrar-container-obras-container-paragrafo">
+                                                                {item.resumo.split('<br />').map((itens) => (
+                                                                    <>
+                                                                        
+                                                                        <p>{itens}</p>
+                                                                        <br/>
+                                                                    
+                                                                    </>
+                                                                ))}
+    
+                                                                <div className="main-obras-todas-container-mostrar-container-obras-container-paragrafo-opacidade"></div>
+                                                            </div>
+
+                                                            <div className="main-obras-todas-container-mostrar-container-obras-container-rodape">
+                                                                <p>{item.usuario}, {item.data_publi.slice(6,10)}</p>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </>
+                                            ))}
+                                                </>
+                                            )
+
+                                            
+
+                                        ):(
+                                            <p>Carregando...</p>
+                                        )}
+                                    </>
                                     )}
                                 </div>
                             </div>
@@ -87,10 +184,79 @@ export const Obras = () => {
                     <div className="main-obras-ver-container">
                         <div className="main-obras-ver-container-mostrar">
                             <div className="main-obras-ver-container-mostrar-titulo">
-                                <h1>CAPISTRANO DE ABREU</h1>
+                                {titulo.length > 31?(
+                                    <h1 style={{fontSize:"1.6rem", letterSpacing:"2px"}}>{titulo}</h1>
+                                ):(
+                                    <h1>{titulo}</h1>
+                                )}
+                                
                             </div>
 
-                            <div className="main-obras-ver-container-mostrar-container"></div>
+                            <div className="main-obras-ver-container-mostrar-container">
+                                <div className="main-obras-ver-container-mostrar-container-obra" ref={containerObras}>
+                                    {carregandoId?(
+
+                                        <>
+
+                                        <div className="main-obras-ver-container-mostrar-container-obra-assuntos">
+
+                                            <ul>
+                                                {pegarObraId.assuntos.split(',').map((topicos) => (
+                                                    <li>{topicos}</li>
+                                                ))}
+                                            </ul>
+
+                                        </div>
+                                        
+                                        <div className="main-obras-ver-container-mostrar-container-obra-descricao">
+                                            
+                                            {pegarObraId.descricao.split('<br />').map((item) => (
+                                                <>
+                                                    
+                                                    <p>{item}</p>
+                                                    <br/>
+                                                
+                                                </>
+                                            ))}
+                                        </div>
+                                        <div className="main-obras-ver-container-mostrar-container-obra-traco">
+
+                                        </div>
+                                        <div className="main-obras-ver-container-mostrar-container-obra-liks">
+                                            <h4>Fontes</h4>
+                                            {pegarObraId.links.split(',').map((link) => (
+                                                <a href={link} >{link}</a>
+                                            ))}
+                                            
+                                            
+                                        </div>
+
+                                        </>
+
+                                    ):(
+                                        <>
+                                            <div className="nenhuma-obra-selecionada">
+
+                                                <h1>Nenhuma obra selecionada ainda</h1>
+
+                                            </div>
+                                            
+                                        </>
+                                    )}
+                                </div>
+                                <div className="main-obras-ver-container-mostrar-container-rodape">
+                                    <div className="main-obras-ver-container-mostrar-container-rodape-container">
+                                        {carregandoId&&(
+                                            <>
+                                                <p>Publicado por {pegarObraId.usuario}</p>
+                                                <p>{pegarObraId.data_publi}</p>
+                                            
+                                            </>
+                                        )}
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

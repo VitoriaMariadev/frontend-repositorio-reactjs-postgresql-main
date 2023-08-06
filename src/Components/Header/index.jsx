@@ -60,7 +60,7 @@ function Header (){
                         <il><NavLink to="/">Inicio</NavLink></il>
                         <il><NavLink to="/Obras">Obras</NavLink></il>
                         <il><NavLink to="/Biografia">Biografia</NavLink></il>
-                        <il>
+                        <il className="opcao-configurar">
                             <a className="configurar-obras" to="#">Configurar obras
 
                                 <ul className='menu-dropdown'>

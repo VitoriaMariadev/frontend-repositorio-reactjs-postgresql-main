@@ -4,6 +4,8 @@ import Header from "../../Components/Header"
 import './style.css'
 import { api } from "../../Services/API"
 import { pegarIdUsuario } from "../../Services/localstorage"
+import { Aviso } from "../../Components/Aviso"
+import {BsFillTrash3Fill} from 'react-icons/bs'
 
 export const CadastrarObras = () => {
     const [titulo, setTitulo] = useState('')
@@ -29,33 +31,58 @@ export const CadastrarObras = () => {
     const [modelAssuntos, setModelAssuntos] = useState('')
     const [modelLinks, setModelLinks] = useState('')
     const [modelImagens, setModelImagens] = useState('')
+    const [modelMensagem, setModelMensagem] = useState('')
+    const [modelVerImagem, setModelVerImagem] = useState(false)
     const [adicionarAutor, setAdicionarAutor] = useState('none')
     const [adicionarAssunto, setAdicionarAssunto] = useState('none')
-    const [adicionarLink, setAdicionarLink] = useState('none')
-    const [adicionarImagem, setAdicionarImagem] = useState('none')
     const [idUsuario, setIdUsuario] = useState('')
-
+    const [tipoMensagem, setTipoMensagem] = useState('')
+    const [mensagem, setMensagem] = useState('')
+    const [verImagem, setVerImagem] = useState('')
 
     // Cadastrar Informações
 
     const cadastrarObra = async () => {
+
+        const dataHora = new Date()
+        const novaDescricao = descricao.replace(/\n/g, "<br />")
+        const novoResumo = resumo.replace(/\n/g, "<br />")
+
         const data = {
             titulo,
-            descricao,
-            resumo,
-            data_publi:new Date(),
+            descricao:novaDescricao,
+            resumo:novoResumo,
+            data_publi:dataHora.toLocaleString('pt-BR', { timezone: 'UTC' }),
             autor: listaAutores,
             assunto:listaAssuntos,
-            link: [adicionarLink],
-            img: [adicionarImagem],
+            link: listaLinks,
+            img: [listaImagens],
             usuario:idUsuario
         }
-        
-        console.log(data)
+
 
         try {
+            
+            console.log(data)
             const res = await api.post('/cadastro_obras', data)
             console.log(res.data)
+            if (res.data.status === 400){
+                setTipoMensagem('erro')
+                setMensagem(res.data.Mensagem)
+                setModelMensagem(true)
+                
+            }else{
+                setModelMensagem(true)
+                setTipoMensagem('sucesso')
+                setMensagem(res.data.Mensagem)
+                setTitulo('')
+                setDescricao('')
+                setResumo('')
+                setListaAutores([])
+                setListaAssuntos([])
+            
+
+            }
         } catch (error) {
             console.log(error)
         }
@@ -73,22 +100,6 @@ export const CadastrarObras = () => {
             setAutor('')
             setModelAutores(false)
             
-            
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const cadastrarLink = async () => {
-        const data = {
-            link:link
-        }
-
-        try {
-
-            const res = await api.post('/cadastrar_link', data)
-            console.log(res.data)
-            setLink('')
             
         } catch (error) {
             console.log(error)
@@ -135,8 +146,13 @@ export const CadastrarObras = () => {
 
             const res = await api.get('/mostrar_todos_autores')
             console.log(res.data)
-            setTodosAutores(res.data)
-            setCarregandoAutor(true)
+            if (res.data.status === 400){
+                setCarregandoAutor(false)
+            }else{
+                setTodosAutores(res.data)
+                setCarregandoAutor(true)
+            }
+            
 
             
         } catch (error) {
@@ -162,9 +178,14 @@ export const CadastrarObras = () => {
         try {
 
             const res = await api.post('/mostrar_assuntos')
-            console.log(res.data)
-            setTodosAssuntos(res.data)
-            setCarregandoAssunto(true)
+            if (res.data.status === 400){
+                setCarregandoAssunto(false)
+            }else{
+                console.log(res.data)
+                setTodosAssuntos(res.data)
+                setCarregandoAssunto(true)
+            }
+            
 
             
         } catch (error) {
@@ -186,7 +207,16 @@ export const CadastrarObras = () => {
         }
     }
 
+    const pegarImagemParaVer = (url) => {
+        setModelVerImagem(true)
+        setVerImagem(url)
+    }
+
     // Abrir models
+
+    const fecharModelVerImagem = () => {
+        setModelVerImagem(false)
+    }
 
     const AbrirModelAutores = () => {
         if(modelAutores){
@@ -242,6 +272,28 @@ export const CadastrarObras = () => {
         }
     }
 
+    const adicionarLinks = (nome) => {
+        if(link !== '' && !listaLinks.includes(link)){
+            const novoLink = link
+            const novaListaLinks = [...listaLinks, novoLink]
+            setlistaLinks(novaListaLinks)
+            setLink('')
+            console.log('lista de Links', listaLinks)
+
+        }
+    }
+
+    const adicionarImagens = (nome) => {
+        if(imagem !== '' && !listaImagens.includes(imagem)){
+            const novaImagem = imagem
+            const novaListaImagens = [...listaImagens, novaImagem]
+            setListaImagens(novaListaImagens)
+            setImagem('')
+            console.log('lista de Imagens', listaImagens)
+
+        }
+    }
+
     // Apagar da lista
 
     const apagarDaListaAutores = (valor) => {
@@ -254,6 +306,18 @@ export const CadastrarObras = () => {
         const novaListaAssuntos = [...listaAssuntos]; // Cria uma cópia da lista original
         novaListaAssuntos.splice(valor, 1); // Remove o elemento da nova lista
         setListaAssuntos(novaListaAssuntos); // Atualiza o estado com a nova lista
+    }
+
+    const apagarDaListaLinks = (valor) => {
+        const novaListaLinks = [...listaLinks]; // Cria uma cópia da lista original
+        novaListaLinks.splice(valor, 1); // Remove o elemento da nova lista
+        setlistaLinks(novaListaLinks); // Atualiza o estado com a nova lista
+    }
+
+    const apagarDaListaImagens = (valor) => {
+        const novaListaImagens = [...listaImagens]; // Cria uma cópia da lista original
+        novaListaImagens.splice(valor, 1); // Remove o elemento da nova lista
+        setListaImagens(novaListaImagens); // Atualiza o estado com a nova lista
     }
 
     // Carregando Informações
@@ -291,6 +355,11 @@ export const CadastrarObras = () => {
 
             <Header/>
             <Enfeite/>
+
+            {modelMensagem&&(
+                <Aviso tipo={tipoMensagem} mensagem={mensagem} acao="CADASTRAR"/>
+            )}
+            
             <main className="main-cadastrar-obras">
 
                 {modelAutores&&(
@@ -334,6 +403,60 @@ export const CadastrarObras = () => {
                     </>
                 )}
 
+                {modelLinks&&(
+                    <>
+                    
+                        <div className="links-cadastrados">
+                            <h3>LINKS</h3>
+                            <div className="links-cadastrados-container">
+                                {listaLinks.map((item, index) => (
+                                    <div className="links-cadastrados-container-link">
+                                        <a href={item}>{item}</a>
+                                        <div className="links-cadastrados-container-link-apagar" onClick={() => apagarDaListaLinks(index)}><BsFillTrash3Fill/></div>
+
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="links-cadastrados-btn">
+                                <button onClick={AbrirModelLinks}>Ok</button>
+                            </div>
+                        </div>
+
+                    </>
+                )}
+
+                {modelImagens&&(
+                    <>
+                    
+                        <div className="links-cadastrados">
+                            <h3>IMAGENS</h3>
+                            <div className="links-cadastrados-container">
+                                {listaImagens.map((item, index) => (
+                                    <div className="links-cadastrados-container-link">
+                                        <a onClick={() => pegarImagemParaVer(item)}>{item}</a>
+                                        <div className="links-cadastrados-container-link-apagar" onClick={() => apagarDaListaImagens(index)}><BsFillTrash3Fill/></div>
+
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="links-cadastrados-btn">
+                                <button onClick={AbrirModelImagens}>Ok</button>
+                            </div>
+                        </div>
+
+                    </>
+                )}
+
+                {modelVerImagem&&(
+                    <div className="model-ver-imagem">
+                                <img src={verImagem} alt="" />
+
+                        <div className="model-ver-imagem-btn">
+                            <button onClick={fecharModelVerImagem}>Ok</button>
+                        </div>
+                    </div>
+                )}
+
                 <div className="main-cadastrar-obras-container">
                     <div className="main-cadastrar-obras-container-titulo">
                         <h1>PUBLICAR OBRA</h1>
@@ -355,10 +478,10 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-esquerda-link">
                                 <p>Link</p>
                                 <div className="main-cadastrar-obras-container-formulario-esquerda-link-input">
-                                    <input type="text" onChange={(e) => setAdicionarLink(e.target.value)}/>
-                                    <button onClick={AbrirModelLinks}>+</button>
+                                    <input type="text" value={link} onChange={(e) => setLink(e.target.value)}/>
+                                    <button onClick={adicionarLinks}>+</button>
                                 </div>
-                                <a className="ver-links">
+                                <a className="ver-links" onClick={AbrirModelLinks}>
                                     Visualizar links adicionados
                                 </a>
 
@@ -423,10 +546,10 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-direita-imagens">
                                 <p>Link de imagens</p>
                                 <div className="main-cadastrar-obras-container-formulario-direita-imagens-input">
-                                    <input type="text" onChange={(e) => setAdicionarImagem(e.target.value)}/>
-                                    <button onClick={AbrirModelImagens}>+</button>
+                                    <input type="text" value={imagem} onChange={(e) => setImagem(e.target.value)}/>
+                                    <button onClick={adicionarImagens}>+</button>
                                 </div>
-                                <a className="ver-links">
+                                <a className="ver-links" onClick={AbrirModelImagens}>
                                     Visualizar links adicionados
                                 </a>
 

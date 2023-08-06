@@ -69,7 +69,7 @@
   height: 87%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
 }
 
@@ -137,8 +137,121 @@
 }
 
 .main-obras-todas-container-mostrar-container-obras {
+  width: 98%;
+  height: 85%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.main-obras-todas-container-mostrar-container-obras::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+
+.main-obras-todas-container-mostrar-container-obras::-webkit-scrollbar-thumb {
+  background-color: #D9D9D9; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
+.filtros {
+  width: 80%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  color: #2F4F4F;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.main-obras-todas-container-mostrar-container-obras-classificacao {
+  width: 80%;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: red;
+}
+
+.main-obras-todas-container-mostrar-container-obras-classificacao > p {
   width: 100%;
-  height: 90%;
+  height: 30%;
+  display: flex;
+  color: #2F4F4F;
+  font-weight: 500;
+}
+
+.obra-nao-encontrada {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(47, 79, 79, 0.6352941176);
+}
+
+.obra-nao-encontrada > p {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.main-obras-todas-container-mostrar-container-obras-container {
+  width: 80%;
+  height: auto;
+  margin-bottom: 4%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(47, 79, 79, 0.7607843137);
+}
+
+.main-obras-todas-container-mostrar-container-obras-container-titulo {
+  width: 100%;
+  padding-bottom: 3px;
+  display: flex;
+  align-items: center;
+  color: #349A46;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.main-obras-todas-container-mostrar-container-obras-container-titulo > h3:hover {
+  color: #2F4F4F;
+}
+
+.main-obras-todas-container-mostrar-container-obras-container-paragrafo {
+  width: 100%;
+  height: 20vh;
+  overflow: hidden;
+  color: #2F4F4F;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  position: relative;
+}
+
+.main-obras-todas-container-mostrar-container-obras-container-paragrafo-opacidade {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 35%;
+  opacity: 20%;
+  background-color: #FFFFFF;
+}
+
+.main-obras-todas-container-mostrar-container-obras-container-rodape {
+  width: 100%;
+  height: 4vh;
+  display: flex;
+  align-items: end;
+  justify-content: right;
+  font-family: "Roboto", sans-serif;
+  color: #2F4F4F;
+  font-weight: 400;
 }
 
 .main-obras-ver {
@@ -202,4 +315,136 @@
 .main-obras-ver-container-mostrar-container {
   width: 100%;
   height: 87%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.main-obras-ver-container-mostrar-container-obra {
+  width: 98%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  overflow: scroll;
+}
+
+.main-obras-ver-container-mostrar-container-obra-assuntos {
+  width: 90%;
+  padding-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main-obras-ver-container-mostrar-container-obra-assuntos > ul {
+  width: 100%;
+  display: flex;
+}
+
+.main-obras-ver-container-mostrar-container-obra-assuntos > ul > li {
+  padding: 3px 15px 3px 15px;
+  margin-right: 5px;
+  background-color: #349A46;
+  color: #FFFFFF;
+  font-size: 0.8rem;
+  list-style: none;
+  border-radius: 20px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.main-obras-ver-container-mostrar-container-obra-assuntos > ul > li:hover {
+  background-color: #308540;
+}
+
+.main-obras-ver-container-mostrar-container-obra::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+
+.main-obras-ver-container-mostrar-container-obra::-webkit-scrollbar-thumb {
+  background-color: #D9D9D9; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
+.main-obras-ver-container-mostrar-container-obra-descricao {
+  width: 90%;
+  color: #2F4F4F;
+  padding-bottom: 20px;
+}
+
+.main-obras-ver-container-mostrar-container-obra-descricao > p {
+  text-align: justify;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.main-obras-ver-container-mostrar-container-obra-traco {
+  width: 60%;
+  border-bottom: #2F4F4F solid 1px;
+}
+
+.main-obras-ver-container-mostrar-container-obra-liks {
+  padding-top: 20px;
+  width: 90%;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.main-obras-ver-container-mostrar-container-obra-liks > h4 {
+  height: 4vh;
+  color: #2F4F4F;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+
+.main-obras-ver-container-mostrar-container-obra-liks > a {
+  font-size: 0.85rem;
+  color: #2F4F4F;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  margin-bottom: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nenhuma-obra-selecionada {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(47, 79, 79, 0.5);
+}
+
+.nenhuma-obra-selecionada > h1 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}
+
+.main-obras-ver-container-mostrar-container-rodape {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.main-obras-ver-container-mostrar-container-rodape-container {
+  width: 50%;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  flex-direction: column;
+  color: #2F4F4F;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
 }/*# sourceMappingURL=style.css.map */
