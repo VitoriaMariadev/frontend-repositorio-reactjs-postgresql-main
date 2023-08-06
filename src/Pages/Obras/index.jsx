@@ -8,9 +8,26 @@ import { Enfeite } from '../../Components/Enfeite';
 import {BsFilter} from 'react-icons/bs'
 
 export const Obras = () => {
-    
+    const [carregando, setCarregando] = useState(false)
+    const [pegarObras, setPegarObras] = useState('')
 
-    
+    const obras = async () => {
+        try {
+            
+            const res = await api.get('/mostrar_todas_obras')
+            console.log(res.data)
+            setPegarObras(res.data)
+            setCarregando(true)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        obras()
+    }, [])
+
     return (
         <>     
             <Header></Header>
@@ -36,7 +53,32 @@ export const Obras = () => {
                                         <BsFilter/>
                                     </div>
                                 </div>
-                                <div className="main-obras-todas-container-mostrar-container-obras"></div>
+                                <div className="main-obras-todas-container-mostrar-container-obras">
+                                    {carregando?(
+
+                                        pegarObras.map((item, index) => (
+                                            <>
+                                                <div className="main-obras-todas-container-mostrar-container-obras-container">
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-container-titulo">
+                                                        <h3>{item.titulo}</h3>
+                                                    </div>
+
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-container-paragrafo">
+                                                        <p>{item.resumo}</p>
+                                                    </div>
+
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-container-rodape">
+                                                        <p>{item.usuario}, {item.data_publi.slice(0,4)}</p>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </>
+                                        ))
+
+                                    ):(
+                                        <p>Carregando...</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>

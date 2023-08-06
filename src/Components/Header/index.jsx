@@ -61,16 +61,16 @@ function Header (){
                         <il><NavLink to="/Obras">Obras</NavLink></il>
                         <il><NavLink to="/Biografia">Biografia</NavLink></il>
                         <il>
-                            <NavLink className="configurar-obras" to="/Configurar_Obras">Configurar obras
+                            <a className="configurar-obras" to="#">Configurar obras
 
                                 <ul className='menu-dropdown'>
                                     <il><h3>CONFIGURAÇÕES</h3></il>
-                                    <il><NavLink to="/Homenagens" >PUBLICAR OBRA</NavLink></il>
+                                    <il><NavLink to="/Cadastrar_Obras" >PUBLICAR OBRA</NavLink></il>
                                     <il><NavLink to="/Homenagens" >EDITAR OBRA</NavLink></il>
                                     <il><NavLink to="/Homenagens" >DELETAR OBRA</NavLink></il>
                                 </ul>
 
-                            </NavLink></il>
+                            </a></il>
                         <il><NavLink to="/Cadastrar_Usuario">Cadastrar Usuario</NavLink></il>
                         <il><NavLink to="/Homenagens">Homenagens</NavLink></il>
                         
