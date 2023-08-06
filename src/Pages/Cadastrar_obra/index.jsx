@@ -3,6 +3,7 @@ import { Enfeite } from "../../Components/Enfeite"
 import Header from "../../Components/Header"
 import './style.css'
 import { api } from "../../Services/API"
+import { pegarIdUsuario } from "../../Services/localstorage"
 
 export const CadastrarObras = () => {
     const [titulo, setTitulo] = useState('')
@@ -12,10 +13,10 @@ export const CadastrarObras = () => {
     const [resumo, setResumo] = useState('')
     const [assunto, setAssuntos] = useState('')
     const [imagem, setImagem] = useState('')
-    const [listaAutores, setListaAutores] = useState('')
-    const [listaLinks, setlistaLinks] = useState('')
-    const [listaAssuntos, setListaAssuntos] = useState('')
-    const [listaImagens, setListaImagens] = useState('')
+    const [listaAutores, setListaAutores] = useState([])
+    const [listaLinks, setlistaLinks] = useState([])
+    const [listaAssuntos, setListaAssuntos] = useState([])
+    const [listaImagens, setListaImagens] = useState([])
     const [todosAutoes, setTodosAutores] = useState('')
     const [todosLinks, setTodosLinks] = useState('')
     const [todosAssuntos, setTodosAssuntos] = useState('')
@@ -28,8 +29,37 @@ export const CadastrarObras = () => {
     const [modelAssuntos, setModelAssuntos] = useState('')
     const [modelLinks, setModelLinks] = useState('')
     const [modelImagens, setModelImagens] = useState('')
+    const [adicionarAutor, setAdicionarAutor] = useState('none')
+    const [adicionarAssunto, setAdicionarAssunto] = useState('none')
+    const [adicionarLink, setAdicionarLink] = useState('none')
+    const [adicionarImagem, setAdicionarImagem] = useState('none')
+    const [idUsuario, setIdUsuario] = useState('')
+
 
     // Cadastrar Informações
+
+    const cadastrarObra = async () => {
+        const data = {
+            titulo,
+            descricao,
+            resumo,
+            data_publi:new Date(),
+            autor: listaAutores,
+            assunto:listaAssuntos,
+            link: [adicionarLink],
+            img: [adicionarImagem],
+            usuario:idUsuario
+        }
+        
+        console.log(data)
+
+        try {
+            const res = await api.post('/cadastro_obras', data)
+            console.log(res.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const cadastrarAutores = async () => {
         const data = {
@@ -190,7 +220,47 @@ export const CadastrarObras = () => {
         }
     }
 
+    // Adicionar as Listas
+
+    const adicionarAutores = (nome) => {
+        if(adicionarAutor !== 'none' && !listaAutores.includes(adicionarAutor)){
+            const novoAutor = adicionarAutor
+            const novaListaAutor = [...listaAutores, novoAutor]
+            setListaAutores(novaListaAutor)
+            console.log('lista de autores', listaAutores)
+
+        }
+    }
+
+    const adicionarAssuntos = (nome) => {
+        if(adicionarAssunto !== 'none' && !listaAssuntos.includes(adicionarAssunto)){
+            const novoAssunto = adicionarAssunto
+            const novaListaAssunto= [...listaAssuntos, novoAssunto]
+            setListaAssuntos(novaListaAssunto)
+            console.log('lista de assuntos', listaAssuntos)
+
+        }
+    }
+
+    // Apagar da lista
+
+    const apagarDaListaAutores = (valor) => {
+        const novaListaAutores = [...listaAutores]; // Cria uma cópia da lista original
+        novaListaAutores.splice(valor, 1); // Remove o elemento da nova lista
+        setListaAutores(novaListaAutores); // Atualiza o estado com a nova lista
+    }
+
+    const apagarDaListaAssuntos = (valor) => {
+        const novaListaAssuntos = [...listaAssuntos]; // Cria uma cópia da lista original
+        novaListaAssuntos.splice(valor, 1); // Remove o elemento da nova lista
+        setListaAssuntos(novaListaAssuntos); // Atualiza o estado com a nova lista
+    }
+
     // Carregando Informações
+    useEffect(() =>{
+        const novoId = pegarIdUsuario()
+        setIdUsuario(novoId)
+    }, [])
 
     useEffect(() => {
         pegarAssuntos()
@@ -207,6 +277,14 @@ export const CadastrarObras = () => {
     useEffect(() => {
         pegarImagens()
     }, [])
+
+    useEffect(() => {
+        adicionarAutores()
+    }, [adicionarAutor])
+
+    useEffect(() => {
+        adicionarAssuntos()
+    }, [adicionarAssunto])
 
     return(
         <>
@@ -277,7 +355,7 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-esquerda-link">
                                 <p>Link</p>
                                 <div className="main-cadastrar-obras-container-formulario-esquerda-link-input">
-                                    <input type="text" />
+                                    <input type="text" onChange={(e) => setAdicionarLink(e.target.value)}/>
                                     <button onClick={AbrirModelLinks}>+</button>
                                 </div>
                                 <a className="ver-links">
@@ -291,8 +369,8 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-direita-autores">
                                 <p>Autores</p>
                                 <div className="main-cadastrar-obras-container-formulario-direita-autores-input">
-                                    <select>
-                                        <option value=""></option>
+                                    <select onChange={(e) => setAdicionarAutor(e.target.value)}>
+                                        <option value="none"></option>
                                         {carregandoAutor&&(
                                             <>
                                                 {todosAutoes.map((item) => (
@@ -303,6 +381,11 @@ export const CadastrarObras = () => {
                                     </select>
                                     <button onClick={AbrirModelAutores}>+</button>
                                 </div>
+                                <ul>
+                                    {listaAutores.map((item, index) => (
+                                        <il key={index} onClick={() => apagarDaListaAutores(index)}>{item}</il>
+                                    ))}
+                                </ul>
 
                             </div>
 
@@ -314,8 +397,8 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-direita-topicos">
                                 <p>Tópicos</p>
                                 <div className="main-cadastrar-obras-container-formulario-direita-topicos-input">
-                                    <select>
-                                        <option value=""></option>
+                                    <select onChange={(e) => setAdicionarAssunto(e.target.value)}>
+                                        <option value="none"></option>
                                         {carregandoAssunto&&(
                                             <>
                                             
@@ -328,15 +411,19 @@ export const CadastrarObras = () => {
                                     </select>
                                     <button onClick={AbrirModelAssuntos}>+</button>
                                 </div>
+                                <ul>
+                                    {listaAssuntos.map((item, index) => (
+                                        <il key={index} onClick={() => apagarDaListaAssuntos(index)}>{item}</il>
+                                    ))}
+
+                                </ul>
 
                             </div>
 
                             <div className="main-cadastrar-obras-container-formulario-direita-imagens">
                                 <p>Link de imagens</p>
                                 <div className="main-cadastrar-obras-container-formulario-direita-imagens-input">
-                                    <select>
-                                        <option value=""></option>
-                                    </select>
+                                    <input type="text" onChange={(e) => setAdicionarImagem(e.target.value)}/>
                                     <button onClick={AbrirModelImagens}>+</button>
                                 </div>
                                 <a className="ver-links">
@@ -346,7 +433,7 @@ export const CadastrarObras = () => {
                             </div>
 
                             <div className="main-cadastrar-obras-container-formulario-direita-publicar">
-                                <button>Publicar</button>
+                                <button onClick={cadastrarObra}>Publicar</button>
                             </div>
 
                         </div>
