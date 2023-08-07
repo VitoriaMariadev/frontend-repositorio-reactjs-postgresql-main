@@ -411,7 +411,7 @@ export const CadastrarObras = () => {
                             <div className="links-cadastrados-container">
                                 {listaLinks.map((item, index) => (
                                     <div className="links-cadastrados-container-link">
-                                        <a href={item}>{item}</a>
+                                        <a href={item} target="_blank">{item}</a>
                                         <div className="links-cadastrados-container-link-apagar" onClick={() => apagarDaListaLinks(index)}><BsFillTrash3Fill/></div>
 
                                     </div>
@@ -433,7 +433,7 @@ export const CadastrarObras = () => {
                             <div className="links-cadastrados-container">
                                 {listaImagens.map((item, index) => (
                                     <div className="links-cadastrados-container-link">
-                                        <a onClick={() => pegarImagemParaVer(item)}>{item}</a>
+                                        <a href={item} target="_blank">{item}</a>
                                         <div className="links-cadastrados-container-link-apagar" onClick={() => apagarDaListaImagens(index)}><BsFillTrash3Fill/></div>
 
                                     </div>

@@ -6,6 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Header from '../../Components/Header';
 import { Enfeite } from '../../Components/Enfeite';
 import {BsFilter} from 'react-icons/bs'
+import {ImRadioChecked, ImRadioUnchecked} from 'react-icons/im'
 
 export const Obras = () => {
     const containerObras = useRef(null)
@@ -17,6 +18,186 @@ export const Obras = () => {
     const [pesquisarTitulo, setPesquisarTitulo] = useState('')
     const [obraNaoEncontrada, setObraNaoEncontrada] = useState(false)
     const [modelFiltro, setModelFiltro] = useState(false)
+    const [obrasRecentesSvg, setObrasRecentesSvg] = useState(<ImRadioUnchecked/>)
+    const [obrasRecentes, setObrasRecentes] = useState(false)
+    const [obrasAntigas, setObrasAntigas] = useState(false)
+    const [obrasAntigasSvg, setObrasAntigasSvg] = useState(<ImRadioUnchecked/>)
+    const [todosOsAutores, setTodosOsAutores] = useState(false)
+    const [todosOsAutoresSvg, setTodosOsAutoresSvg] = useState(<ImRadioUnchecked/>)
+    const [capistranoAbreu, setCapistranoAbreu] = useState(false)
+    const [capistranoAbreuSvg, setCapistranoAbreuSvg] = useState(<ImRadioUnchecked/>)
+    const [buscarAutor, setBuscarAutor] = useState('')
+    const [buscarPorAutor, setBuscarPorAutor] = useState(false)
+    const [buscarPorAutorSvg, setBuscarPorAutorSvg] = useState(<ImRadioUnchecked/>)
+    const [ordemAlfabetica, setOrdemAlfabetica] = useState(false)
+    const [ordemAlfabeticaSvg, setOrdemAlfabeticaSvg] = useState(<ImRadioUnchecked/>)
+    const [ordemAleatoria, setOrdemAleatoria] = useState(false)
+    const [ordemAleatoriaSvg, setOrdemAleatoriaSvg] = useState(<ImRadioUnchecked/>)
+    const [todosAssuntos, setTodosAssuntos] = useState('')
+    const [carregandoAssunto, setCarregandoAssunto] = useState(false)
+
+    // Ativar filtro
+
+    const ativarObrasRecentes = () => {
+        if(obrasRecentes){
+            setObrasRecentes(false)
+            setObrasRecentesSvg(<ImRadioUnchecked/>)
+        }else{
+            pesquisarPorMaisRecente()
+            setObrasRecentes(true)
+            setObrasAntigas(false)
+            setObrasAntigasSvg(<ImRadioUnchecked/>)
+            setObrasRecentesSvg(<ImRadioChecked/>)
+            setTodosOsAutores(false)
+            setTodosOsAutoresSvg(<ImRadioUnchecked/>)
+            setCapistranoAbreu(false)
+            setCapistranoAbreuSvg(<ImRadioUnchecked/>)
+            setBuscarPorAutor(false)
+            setBuscarPorAutorSvg(<ImRadioUnchecked/>)
+            setOrdemAlfabetica(false)
+            setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
+            setOrdemAleatoria(false)
+            setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+        }
+    }
+
+    const ativarObrasAntigas = () =>{
+        if(obrasAntigas){
+            setObrasAntigas(false)
+            setObrasAntigasSvg(<ImRadioUnchecked/>)
+        }else{
+            pesquisarPorMaisAntiga()
+            setObrasAntigas(true)
+            setObrasRecentes(false)
+            setObrasAntigasSvg(<ImRadioChecked/>)
+            setObrasRecentesSvg(<ImRadioUnchecked/>)
+            setTodosOsAutores(false)
+            setTodosOsAutoresSvg(<ImRadioUnchecked/>)
+            setCapistranoAbreu(false)
+            setCapistranoAbreuSvg(<ImRadioUnchecked/>)
+            setBuscarPorAutor(false)
+            setBuscarPorAutorSvg(<ImRadioUnchecked/>)
+            setOrdemAlfabetica(false)
+            setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
+            setOrdemAleatoria(false)
+            setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+        }
+    }
+
+    const ativarTodosOsAutores = () => {
+        if(todosOsAutores){
+            setTodosOsAutores(false)
+            setTodosOsAutoresSvg(<ImRadioUnchecked/>)
+        }else{
+            pesquisarTodosOutrosAutores()
+            setTodosOsAutores(true)
+            setTodosOsAutoresSvg(<ImRadioChecked/>)
+            setObrasRecentes(false)
+            setObrasRecentesSvg(<ImRadioUnchecked/>)
+            setObrasAntigas(false)
+            setObrasAntigasSvg(<ImRadioUnchecked/>)
+            setCapistranoAbreu(false)
+            setCapistranoAbreuSvg(<ImRadioUnchecked/>)
+            setBuscarPorAutor(false)
+            setBuscarPorAutorSvg(<ImRadioUnchecked/>)
+            setOrdemAlfabetica(false)
+            setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
+            setOrdemAleatoria(false)
+            setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+        }
+    }
+
+    const ativarCapistrano = () => {
+        if(capistranoAbreu){
+            setCapistranoAbreu(false)
+            setCapistranoAbreuSvg(<ImRadioUnchecked/>)
+        }else{
+            pesquisarTodosCapistrano()
+            setCapistranoAbreu(true)
+            setCapistranoAbreuSvg(<ImRadioChecked/>)
+            setTodosOsAutores(false)
+            setTodosOsAutoresSvg(<ImRadioUnchecked/>)
+            setObrasRecentes(false)
+            setObrasRecentesSvg(<ImRadioUnchecked/>)
+            setObrasAntigas(false)
+            setObrasAntigasSvg(<ImRadioUnchecked/>)
+            setBuscarPorAutor(false)
+            setBuscarPorAutorSvg(<ImRadioUnchecked/>)
+            setOrdemAlfabetica(false)
+            setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
+            setOrdemAleatoria(false)
+            setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+
+        }
+    }
+
+    const ativarBuscarAutor = () => {
+        if(buscarPorAutor){
+            setBuscarPorAutor(false)
+            setBuscarPorAutorSvg(<ImRadioUnchecked/>)
+        }else{
+            
+            setBuscarPorAutor(true)
+            setBuscarPorAutorSvg(<ImRadioChecked/>)
+            setCapistranoAbreu(false)
+            setCapistranoAbreuSvg(<ImRadioUnchecked/>)
+            setTodosOsAutores(false)
+            setTodosOsAutoresSvg(<ImRadioUnchecked/>)
+            setObrasRecentes(false)
+            setObrasRecentesSvg(<ImRadioUnchecked/>)
+            setObrasAntigas(false)
+            setObrasAntigasSvg(<ImRadioUnchecked/>)
+            setOrdemAlfabetica(false)
+            setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
+            setOrdemAleatoria(false)
+            setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+        }
+    }
+
+    const ativarOrdemAlfabetica = () => {
+        if(ordemAlfabetica){
+            setOrdemAlfabetica(false)
+            setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
+        }else{
+            pesquisaPorOrdemAlfabetica()
+            setOrdemAlfabetica(true)
+            setOrdemAlfabeticaSvg(<ImRadioChecked/>)
+            setBuscarPorAutor(false)
+            setBuscarPorAutorSvg(<ImRadioUnchecked/>)
+            setCapistranoAbreu(false)
+            setCapistranoAbreuSvg(<ImRadioUnchecked/>)
+            setTodosOsAutores(false)
+            setTodosOsAutoresSvg(<ImRadioUnchecked/>)
+            setObrasRecentes(false)
+            setObrasRecentesSvg(<ImRadioUnchecked/>)
+            setObrasAntigas(false)
+            setObrasAntigasSvg(<ImRadioUnchecked/>)
+            setOrdemAleatoria(false)
+            setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+        }
+    }
+
+    const ativarOrdemAleatoria = () => {
+        if(ordemAleatoria){
+            setOrdemAleatoria(false)
+            setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+        }else{
+            setOrdemAleatoria(true)
+            setOrdemAleatoriaSvg(<ImRadioChecked/>)
+            setOrdemAlfabetica(false)
+            setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
+            setBuscarPorAutor(false)
+            setBuscarPorAutorSvg(<ImRadioUnchecked/>)
+            setCapistranoAbreu(false)
+            setCapistranoAbreuSvg(<ImRadioUnchecked/>)
+            setTodosOsAutores(false)
+            setTodosOsAutoresSvg(<ImRadioUnchecked/>)
+            setObrasRecentes(false)
+            setObrasRecentesSvg(<ImRadioUnchecked/>)
+            setObrasAntigas(false)
+            setObrasAntigasSvg(<ImRadioUnchecked/>)
+        }
+    }
 
     // Pegar Obras Por Id
 
@@ -63,7 +244,6 @@ export const Obras = () => {
             const res = await api.get('/mostrar_todas_obras')
             setPegarObras(res.data)
             setCarregando(true)
-            console.log(res.data)
             
 
         } catch (error) {
@@ -81,6 +261,122 @@ export const Obras = () => {
         }
     }
 
+    // Pegar assuntos
+    const pegarAssuntos = async () => {
+        try {
+
+            const res = await api.post('/mostrar_assuntos')
+            if (res.data.status === 400){
+                setCarregandoAssunto(false)
+            }else{
+                console.log(res.data)
+                setTodosAssuntos(res.data)
+                setCarregandoAssunto(true)
+            }
+            
+
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // Pesquisar Por
+
+    const pesquisarPorAssunto = async (nome) => {
+
+        const data = {
+            assunto:nome
+        }
+
+        try {
+
+            const res = await api.post('/mostrar_todas_obras_assunto', data)
+            console.log(res.data)
+            setCarregando(true)
+            setPegarObras(res.data)
+            setModelFiltro(false)
+            
+            
+            
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const pesquisarPorMaisRecente = async () => {
+        try {
+            const res = await api.get('/mostrar_obras_recentes')
+            setCarregando(true)
+            setPegarObras(res.data)
+            setModelFiltro(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const pesquisarPorMaisAntiga = async () => {
+        try {
+            const res = await api.get('/mostrar_obras_antigas')
+            setCarregando(true)
+            setPegarObras(res.data)
+            setModelFiltro(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const pesquisaPorOrdemAlfabetica = async () => {
+        try {
+            const res = await api.get('/mostrar_ordem_alfabetica')
+            console.log(res)
+            setCarregando(true)
+            setPegarObras(res.data)
+            setModelFiltro(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const pesquisarTodosCapistrano = async () => {
+        try {
+            const res = await api.get('/mostrar_todas_capistrano')
+            setCarregando(true)
+            setPegarObras(res.data)
+            setModelFiltro(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const pesquisarTodosOutrosAutores = async () => {
+        try {
+            const res = await api.get('/mostrar_outras_obras')
+            setCarregando(true)
+            setPegarObras(res.data)
+            setModelFiltro(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const pesquisarPorNomeAutor = async () => {
+        const data = {
+            nome:buscarAutor
+        }
+
+        try {
+            const res = await api.post('/pesquisar_nome_autor', data)
+            setCarregando(true)
+            setPegarObras(res.data)
+            setModelFiltro(false)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     useEffect(() => {
         obras()
     }, [])
@@ -88,6 +384,10 @@ export const Obras = () => {
     useEffect(() => {
         pesquisarObraPorNome()
     }, [pesquisarTitulo])
+
+    useEffect(() => {
+        pegarAssuntos()
+    },[])
 
     return (
         <>     
@@ -122,9 +422,73 @@ export const Obras = () => {
                                             <div className="main-obras-todas-container-mostrar-container-obras-classificacao">
                                                 <p>Classificação</p>
                                                 <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes">
-                                                    
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes-obras-recentes check-box" onClick={ativarObrasRecentes}>
+                                                        {obrasRecentesSvg}
+                                                        <p>Obras recentes</p>
+                                                    </div>
+
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes-obras-antigas check-box" onClick={ativarObrasAntigas}>
+                                                        {obrasAntigasSvg}
+                                                        <p>Obras antigas</p>
+                                                    </div>
                                                 </div>
+
+                                                
                                             </div>
+
+                                            <div className="main-obras-todas-container-mostrar-container-obras-autores">
+                                                <p>Autores</p>
+                                                <div className="main-obras-todas-container-mostrar-container-obras-autores-opcoes">
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-autores-opcoes-todos-autores check-box" onClick={ativarTodosOsAutores}>
+                                                        {todosOsAutoresSvg}
+                                                        <p>Todos os autores</p>
+                                                    </div>
+
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-autores-opcoes-capistrano check-box" onClick={ativarCapistrano}>
+                                                        {capistranoAbreuSvg}
+                                                        <p>Capistrano de Abreu</p>
+                                                    </div>
+
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-autores-opcoes-pesquisar check-box" onClick={ativarBuscarAutor}>
+                                                        {buscarPorAutorSvg}
+                                                        <div className="main-obras-todas-container-mostrar-container-obras-autores-opcoes-pesquisar-input">
+                                                            <input type="text" placeholder='Nome do autor' value={buscarAutor} onChange={(e) => setBuscarAutor(e.target.value)}/>
+                                                            <button onClick={pesquisarPorNomeAutor}>Buscar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>   
+                                            </div>
+
+                                            <div className="main-obras-todas-container-mostrar-container-obras-classificacao">
+                                                <p>Ordem</p>
+                                                <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes">
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes-obras-recentes check-box" onClick={ativarOrdemAlfabetica}>
+                                                        {ordemAlfabeticaSvg}
+                                                        <p>A - Z</p>
+                                                    </div>
+
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes-obras-antigas check-box" onClick={ativarOrdemAleatoria}>
+                                                        {ordemAleatoriaSvg}
+                                                        <p>Aleátoria</p>
+                                                    </div>
+                                                </div>   
+                                            </div>
+
+                                            <div className="main-obras-todas-container-mostrar-container-obras-topicos">
+                                                <p>Tópicos</p>
+                                                <ul>
+                                                    {carregandoAssunto&&(
+                                                        todosAssuntos.map((item) => (
+                                                            <li onClick={() => pesquisarPorAssunto(item.nome)} >{item.nome}</li>
+                                                        ))
+                                                    )}
+                                                </ul>
+                                                 
+                                            </div>
+
+                                            
+
+                                            
                                         </>
                                     ):(
                                     <>
