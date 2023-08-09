@@ -6,8 +6,10 @@ import { api } from "../../Services/API"
 import { pegarIdUsuario } from "../../Services/localstorage"
 import { Aviso } from "../../Components/Aviso"
 import {BsFillTrash3Fill} from 'react-icons/bs'
+import { useParams } from "react-router-dom";
 
-export const CadastrarObras = () => {
+export const EditarObrasFormulario = () => {
+    const {id_obra} = useParams()
     const [titulo, setTitulo] = useState('')
     const [descricao, setDescricao] = useState('')
     const [link, setLink] = useState('')
@@ -39,16 +41,37 @@ export const CadastrarObras = () => {
     const [tipoMensagem, setTipoMensagem] = useState('')
     const [mensagem, setMensagem] = useState('')
     const [verImagem, setVerImagem] = useState('')
+    // const [ObraPorId, setObraPorId] = useState('')
 
-    // Cadastrar Informações
+    // Pegar Obra por ID
 
-    const cadastrarObra = async () => {
+    const pegarObraPorId = async () => {
+        try {
+
+            const res = await api.get('/mostrar_obraid/' + id_obra)
+            setTitulo(res.data.titulo)
+            setDescricao(res.data.descricao)
+            setResumo(res.data.resumo)
+            setListaImagens(res.data.imgs.split(','))
+            setlistaLinks(res.data.links.split(','))
+            setListaAutores(res.data.autores.split(','))
+            setListaAssuntos(res.data.assuntos.split(','))
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // Editar Informações
+
+    const EditarrObra = async () => {
 
         const dataHora = new Date()
         const novaDescricao = descricao.replace(/\n/g, "<br />")
         const novoResumo = resumo.replace(/\n/g, "<br />")
 
         const data = {
+            id_obra:parseInt(id_obra),
             titulo,
             descricao:novaDescricao,
             resumo:novoResumo,
@@ -57,15 +80,17 @@ export const CadastrarObras = () => {
             assunto:listaAssuntos,
             link: listaLinks,
             img: listaImagens,
-            usuario:idUsuario
+            usuario:parseInt(idUsuario)
         }
+
+        console.log(data)
 
         console.log(data)
 
         try {
             
             console.log(data)
-            const res = await api.post('/cadastro_obras', data)
+            const res = await api.patch('/editar_obra', data)
             console.log(res.data)
             if (res.data.status === 400){
                 setTipoMensagem('erro')
@@ -73,16 +98,11 @@ export const CadastrarObras = () => {
                 setModelMensagem(true)
                 
             }else{
+                console.log(res.data)
                 setModelMensagem(true)
                 setTipoMensagem('sucesso')
                 setMensagem(res.data.Mensagem)
-                setTitulo('')
-                setDescricao('')
-                setResumo('')
-                setListaAutores([])
-                setListaAssuntos([])
-                setlistaLinks([])
-                setListaImagens([])
+                
             
 
             }
@@ -99,7 +119,6 @@ export const CadastrarObras = () => {
         try {
 
             const res = await api.post('/cadastro_autor', data)
-            console.log(res.data)
             setAutor('')
             setModelAutores(false)
             
@@ -117,25 +136,8 @@ export const CadastrarObras = () => {
         try {
 
             const res = await api.post('/cadastrar_assunto', data)
-            console.log(res.data)
             setAssuntos('')
             setModelAssuntos(false)
-            
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const cadastrarImagens = async () => {
-        const data = {
-            link:imagem
-        }
-
-        try {
-
-            const res = await api.post('/cadastrar_img', data)
-            console.log(res.data)
-            setImagem('')
             
         } catch (error) {
             console.log(error)
@@ -148,7 +150,6 @@ export const CadastrarObras = () => {
         try {
 
             const res = await api.get('/mostrar_todos_autores')
-            console.log(res.data)
             if (res.data.status === 400){
                 setCarregandoAutor(false)
             }else{
@@ -167,7 +168,6 @@ export const CadastrarObras = () => {
         try {
 
             const res = await api.get('/msotrar_todos_links')
-            console.log(res.data)
             setTodosLinks(res.data)
             setCarregandoLink(true)
 
@@ -200,7 +200,6 @@ export const CadastrarObras = () => {
         try {
 
             const res = await api.get('/msotrar_todos_imgs')
-            console.log(res.data)
             setTodasImagens(res.data)
             setCarregandoImagem(true)
 
@@ -208,11 +207,6 @@ export const CadastrarObras = () => {
         } catch (error) {
             console.log(error)
         }
-    }
-
-    const pegarImagemParaVer = (url) => {
-        setModelVerImagem(true)
-        setVerImagem(url)
     }
 
     // Abrir models
@@ -353,6 +347,10 @@ export const CadastrarObras = () => {
         adicionarAssuntos()
     }, [adicionarAssunto])
 
+    useEffect(() => {
+        pegarObraPorId()
+    }, [id_obra, mensagem])
+
     return(
         <>
 
@@ -360,10 +358,10 @@ export const CadastrarObras = () => {
             <Enfeite/>
 
             {modelMensagem&&(
-                <Aviso tipo={tipoMensagem} mensagem={mensagem} acao="CADASTRAR"/>
+                <Aviso tipo={tipoMensagem} mensagem={mensagem} acao="EDITAR"/>
             )}
             
-            <main className="main-cadastrar-obras">
+            <main className="main-editar-formulario-obras">
 
                 {modelAutores&&(
                     <>
@@ -377,7 +375,7 @@ export const CadastrarObras = () => {
 
                             <div className="model-autores-btn">
                                 <button className="model-autores-btn-cancelar" onClick={AbrirModelAutores}>Cancelar</button>
-                                <button className="model-autores-btn-cadastrar" onClick={cadastrarAutores}>Cadastrar</button>
+                                <button className="model-autores-btn-editar-formulario" onClick={cadastrarAutores}>Cadastrar</button>
                             </div>
 
                         </div>
@@ -398,7 +396,7 @@ export const CadastrarObras = () => {
 
                             <div className="model-autores-btn">
                                 <button className="model-autores-btn-cancelar" onClick={AbrirModelAssuntos}>Cancelar</button>
-                                <button className="model-autores-btn-cadastrar" onClick={cadastrarAssuntos}>Cadastrar</button>
+                                <button className="model-autores-btn-editar-formulario" onClick={cadastrarAssuntos}>Cadastrar</button>
                             </div>
 
                         </div>
@@ -460,27 +458,27 @@ export const CadastrarObras = () => {
                     </div>
                 )}
 
-                <div className="main-cadastrar-obras-container">
-                    <div className="main-cadastrar-obras-container-titulo">
-                        <h1>PUBLICAR OBRA</h1>
+                <div className="main-editar-formulario-obras-container">
+                    <div className="main-editar-formulario-obras-container-titulo">
+                        <h1>EDITAR OBRA</h1>
                     </div>
 
-                    <div className="main-cadastrar-obras-container-formulario">
-                        <div className="main-cadastrar-obras-container-formulario-esquerda">
-                            <div className="main-cadastrar-obras-container-formulario-esquerda-titulo">
+                    <div className="main-editar-formulario-obras-container-formulario">
+                        <div className="main-editar-formulario-obras-container-formulario-esquerda">
+                            <div className="main-editar-formulario-obras-container-formulario-esquerda-titulo">
                                 <p>Título da obra</p>
                                 <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)}/>
 
                             </div>
 
-                            <div className="main-cadastrar-obras-container-formulario-esquerda-descricao">
+                            <div className="main-editar-formulario-obras-container-formulario-esquerda-descricao">
                                 <p>Descrição da obra</p>
                                 <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)}></textarea>
                             </div>
 
-                            <div className="main-cadastrar-obras-container-formulario-esquerda-link">
+                            <div className="main-editar-formulario-obras-container-formulario-esquerda-link">
                                 <p>Link</p>
-                                <div className="main-cadastrar-obras-container-formulario-esquerda-link-input">
+                                <div className="main-editar-formulario-obras-container-formulario-esquerda-link-input">
                                     <input type="text" value={link} onChange={(e) => setLink(e.target.value)}/>
                                     <button onClick={adicionarLinks}>+</button>
                                 </div>
@@ -490,11 +488,11 @@ export const CadastrarObras = () => {
 
                             </div>
                         </div>
-                        <div className="main-cadastrar-obras-container-formulario-direita">
+                        <div className="main-editar-formulario-obras-container-formulario-direita">
 
-                            <div className="main-cadastrar-obras-container-formulario-direita-autores">
+                            <div className="main-editar-formulario-obras-container-formulario-direita-autores">
                                 <p>Autores</p>
-                                <div className="main-cadastrar-obras-container-formulario-direita-autores-input">
+                                <div className="main-editar-formulario-obras-container-formulario-direita-autores-input">
                                     <select onChange={(e) => setAdicionarAutor(e.target.value)}>
                                         <option value="none"></option>
                                         {carregandoAutor&&(
@@ -515,14 +513,14 @@ export const CadastrarObras = () => {
 
                             </div>
 
-                            <div className="main-cadastrar-obras-container-formulario-direita-autores-resumo">
+                            <div className="main-editar-formulario-obras-container-formulario-direita-autores-resumo">
                                 <p>Resumo da obra</p>
                                 <textarea value={resumo} onChange={(e) => setResumo(e.target.value)}></textarea>
                             </div>
 
-                            <div className="main-cadastrar-obras-container-formulario-direita-topicos">
+                            <div className="main-editar-formulario-obras-container-formulario-direita-topicos">
                                 <p>Tópicos</p>
-                                <div className="main-cadastrar-obras-container-formulario-direita-topicos-input">
+                                <div className="main-editar-formulario-obras-container-formulario-direita-topicos-input">
                                     <select onChange={(e) => setAdicionarAssunto(e.target.value)}>
                                         <option value="none"></option>
                                         {carregandoAssunto&&(
@@ -546,9 +544,9 @@ export const CadastrarObras = () => {
 
                             </div>
 
-                            <div className="main-cadastrar-obras-container-formulario-direita-imagens">
+                            <div className="main-editar-formulario-obras-container-formulario-direita-imagens">
                                 <p>Link de imagens</p>
-                                <div className="main-cadastrar-obras-container-formulario-direita-imagens-input">
+                                <div className="main-editar-formulario-obras-container-formulario-direita-imagens-input">
                                     <input type="text" value={imagem} onChange={(e) => setImagem(e.target.value)}/>
                                     <button onClick={adicionarImagens}>+</button>
                                 </div>
@@ -558,8 +556,8 @@ export const CadastrarObras = () => {
 
                             </div>
 
-                            <div className="main-cadastrar-obras-container-formulario-direita-publicar">
-                                <button onClick={cadastrarObra}>Publicar</button>
+                            <div className="main-editar-formulario-obras-container-formulario-direita-publicar">
+                                <button onClick={EditarrObra}>Editar</button>
                             </div>
 
                         </div>

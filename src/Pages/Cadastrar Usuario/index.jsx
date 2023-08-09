@@ -22,10 +22,9 @@ export const CadastrarUsuario = () => {
 
     const cadastrarUsuarios = async () => {
         const data = {
-            usuario,
-            tipo_de_usuario,
+            nome:usuario,
             senha,
-            confirmsenha
+            confirmSenha:confirmsenha
         }
 
         if (mensagem) {
@@ -33,7 +32,7 @@ export const CadastrarUsuario = () => {
             setTipo('')
         }
         try{
-            const res = await api.post('/cadastro_usuario', data)
+            const res = await api.post('/cadastro_usuarios', data)
             setUsuario('')
             setSenha('')
             setConfirmsenha('')
@@ -110,7 +109,7 @@ export const CadastrarUsuario = () => {
                                     {usuariosCadastrados.map((itens, index) => (
                                         <div className="main-cadastrar-usuario-conteiner-usuarios-cadastrados-divisao" key={index}>
                                             <p>{itens.nome}</p>
-                                            <div className="main-cadastrar-usuario-conteiner-usuarios-cadastrados-divisao-img" onClick={() => {excluirUsuarios(itens._id)}}><BsTrash3/></div>
+                                            <div className="main-cadastrar-usuario-conteiner-usuarios-cadastrados-divisao-img" onClick={() => {excluirUsuarios(itens.id_usuario)}}><BsTrash3/></div>
                                         </div>
                                     ))}
                                 </>

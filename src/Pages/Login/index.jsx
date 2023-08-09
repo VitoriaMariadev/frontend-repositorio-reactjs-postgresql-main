@@ -33,6 +33,9 @@ export const Login = () =>{
             setarNomeUsuario(res.data.novoUsuario)
             loginToken(res.data.token)
             setarTipoUsuario("admin")
+            setNome('')
+            setSenha('')
+            window.location.href ='/'
 
         }catch(err){
             console.log(err)
@@ -70,7 +73,7 @@ export const Login = () =>{
                                     <div className="main-logar-usuario-conteiner-formulario-conteiner-informacoes-input">
                                         <div className="main-logar-usuario-conteiner-formulario-conteiner-informacoes-input-svg"><FaUserAlt/></div>
                                         
-                                        <input type="text"  onChange={(e) => setNome(e.target.value)}/>
+                                        <input type="text"  value={nome} onChange={(e) => setNome(e.target.value)}/>
                                     </div>
 
                                     <p>Senha</p>
@@ -80,14 +83,14 @@ export const Login = () =>{
                                             <>
                                                 <div className="main-logar-usuario-conteiner-formulario-conteiner-informacoes-input-svg" onClick={mostrarSenha}><FaEyeSlash/></div>
                                             
-                                                <input type="password" onChange={(e) => setSenha(e.target.value)}/>
+                                                <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)}/>
                                             </>
 
                                         ): (
                                             <>
                                                 <div className="main-logar-usuario-conteiner-formulario-conteiner-informacoes-input-svg" onClick={mostrarSenha}><FaEye/></div>
                                             
-                                                <input type="text" onChange={(e) => setSenha(e.target.value)}/>
+                                                <input type="text" value={senha} onChange={(e) => setSenha(e.target.value)}/>
                                             </>
                                         )}
                                         

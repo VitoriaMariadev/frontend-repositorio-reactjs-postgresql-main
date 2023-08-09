@@ -10,6 +10,7 @@ import {ImRadioChecked, ImRadioUnchecked} from 'react-icons/im'
 
 export const Obras = () => {
     const containerObras = useRef(null)
+    const containerTodasObras = useRef(null)
     const [carregando, setCarregando] = useState(false)
     const [pegarObras, setPegarObras] = useState('')
     const [pegarObraId, setPegarObraId] = useState('')
@@ -182,6 +183,7 @@ export const Obras = () => {
             setOrdemAleatoria(false)
             setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
         }else{
+            pesquisarPorOrdemAleatoria()
             setOrdemAleatoria(true)
             setOrdemAleatoriaSvg(<ImRadioChecked/>)
             setOrdemAlfabetica(false)
@@ -196,6 +198,7 @@ export const Obras = () => {
             setObrasRecentesSvg(<ImRadioUnchecked/>)
             setObrasAntigas(false)
             setObrasAntigasSvg(<ImRadioUnchecked/>)
+            
         }
     }
 
@@ -296,6 +299,8 @@ export const Obras = () => {
             setCarregando(true)
             setPegarObras(res.data)
             setModelFiltro(false)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+            
             
             
             
@@ -311,6 +316,7 @@ export const Obras = () => {
             setCarregando(true)
             setPegarObras(res.data)
             setModelFiltro(false)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
         } catch (error) {
             console.log(error)
         }
@@ -322,6 +328,7 @@ export const Obras = () => {
             setCarregando(true)
             setPegarObras(res.data)
             setModelFiltro(false)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
         } catch (error) {
             console.log(error)
         }
@@ -334,6 +341,7 @@ export const Obras = () => {
             setCarregando(true)
             setPegarObras(res.data)
             setModelFiltro(false)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
         } catch (error) {
             console.log(error)
         }
@@ -345,6 +353,7 @@ export const Obras = () => {
             setCarregando(true)
             setPegarObras(res.data)
             setModelFiltro(false)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
         } catch (error) {
             console.log(error)
         }
@@ -356,6 +365,7 @@ export const Obras = () => {
             setCarregando(true)
             setPegarObras(res.data)
             setModelFiltro(false)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
         } catch (error) {
             console.log(error)
         }
@@ -371,6 +381,21 @@ export const Obras = () => {
             setCarregando(true)
             setPegarObras(res.data)
             setModelFiltro(false)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const pesquisarPorOrdemAleatoria = async () => {
+
+        try {
+            const res = await api.get('/mostrar_obras_aleatorio')
+            setCarregando(true)
+            setPegarObras(res.data)
+            setModelFiltro(false)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
         } catch (error) {
             console.log(error)
         }
@@ -414,7 +439,7 @@ export const Obras = () => {
                                         <BsFilter/>
                                     </div>
                                 </div>
-                                <div className="main-obras-todas-container-mostrar-container-obras">
+                                <div className="main-obras-todas-container-mostrar-container-obras" ref={containerTodasObras}>
                                     {modelFiltro?(
                                         <>
                                         
@@ -566,7 +591,7 @@ export const Obras = () => {
 
                                             <ul>
                                                 {pegarObraId.assuntos.split(',').map((topicos) => (
-                                                    <li>{topicos}</li>
+                                                    <li onClick={() => pesquisarPorAssunto(topicos)}>{topicos}</li>
                                                 ))}
                                             </ul>
 

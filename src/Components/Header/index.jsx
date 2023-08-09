@@ -66,8 +66,8 @@ function Header (){
                                 <ul className='menu-dropdown'>
                                     <il><h3>CONFIGURAÇÕES</h3></il>
                                     <il><NavLink to="/Cadastrar_Obras" >PUBLICAR OBRA</NavLink></il>
-                                    <il><NavLink to="/Homenagens" >EDITAR OBRA</NavLink></il>
-                                    <il><NavLink to="/Homenagens" >DELETAR OBRA</NavLink></il>
+                                    <il><NavLink to="/Editar_Obras" >EDITAR OBRA</NavLink></il>
+                                    <il><NavLink to="/Deletar_Obras" >DELETAR OBRA</NavLink></il>
                                 </ul>
 
                             </a></il>
