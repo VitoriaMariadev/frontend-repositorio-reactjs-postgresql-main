@@ -78,11 +78,16 @@ function Header (){
                     </>
                 ):(
                     <>
-                        <NavLink to="/">Inicio</NavLink>
-                        <NavLink to="/Obras">Obras</NavLink>
-                        <NavLink to="/Biografia">Biografia</NavLink>
-                        <NavLink to="/Homenagens">Homenagens</NavLink>
-                        <NavLink to="/Login"><FaUserAlt className='container-navbar-usuario'/></NavLink>
+
+                        <ul>
+
+                            <il><NavLink to="/">Inicio</NavLink></il>
+                            <il><NavLink to="/Obras">Obras</NavLink></il>
+                            <il><NavLink to="/Biografia">Biografia</NavLink></il>
+                            <il><NavLink to="/Homenagens">Homenagens</NavLink></il>
+                            <NavLink to="/Login"><FaUserAlt className='container-navbar-usuario'/></NavLink>
+                            
+                        </ul>
                     </>
                 )}
             </nav>
