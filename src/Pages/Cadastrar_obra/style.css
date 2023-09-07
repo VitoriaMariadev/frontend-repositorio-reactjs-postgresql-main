@@ -317,9 +317,39 @@
   font-size: 0.9rem;
 }
 
+.main-cadastrar-obras-container-formulario-esquerda-data {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.main-cadastrar-obras-container-formulario-esquerda-data > p {
+  width: 70%;
+  height: 35%;
+  color: #2F4F4F;
+  font-weight: 600;
+}
+
+.main-cadastrar-obras-container-formulario-esquerda-data > input {
+  width: 67%;
+  height: 35%;
+  border: none;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #F4F4F4;
+  border-radius: 20px;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+}
+
 .main-cadastrar-obras-container-formulario-esquerda-descricao {
   width: 100%;
-  height: 60%;
+  height: 50%;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -15,6 +15,7 @@ export const CadastrarObras = () => {
     const [resumo, setResumo] = useState('')
     const [assunto, setAssuntos] = useState('')
     const [imagem, setImagem] = useState('')
+    const [data, setData] = useState('')
     const [listaAutores, setListaAutores] = useState([])
     const [listaLinks, setlistaLinks] = useState([])
     const [listaAssuntos, setListaAssuntos] = useState([])
@@ -47,12 +48,14 @@ export const CadastrarObras = () => {
         const dataHora = new Date()
         const novaDescricao = descricao.replace(/\n/g, "<br />")
         const novoResumo = resumo.replace(/\n/g, "<br />")
+        const dataFormatada = new Date(data);
 
         const data = {
             titulo,
             descricao:novaDescricao,
             resumo:novoResumo,
             data_publi:dataHora.toLocaleString('pt-BR', { timezone: 'UTC' }),
+            data_criacao:dataFormatada.toLocaleDateString('pt-BR', {timeZone: 'UTC'}),
             autor: listaAutores,
             assunto:listaAssuntos,
             link: listaLinks,
@@ -476,6 +479,12 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-esquerda-descricao">
                                 <p>Descrição da obra</p>
                                 <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)}></textarea>
+                            </div>
+
+                            <div className="main-cadastrar-obras-container-formulario-esquerda-data">
+                                <p>Data da obra</p>
+                                <input type="date" value={data} onChange={(e) => setData(e.target.value)}/>
+
                             </div>
 
                             <div className="main-cadastrar-obras-container-formulario-esquerda-link">
