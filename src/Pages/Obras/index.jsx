@@ -34,6 +34,10 @@ export const Obras = () => {
     const [ordemAlfabeticaSvg, setOrdemAlfabeticaSvg] = useState(<ImRadioUnchecked/>)
     const [ordemAleatoria, setOrdemAleatoria] = useState(false)
     const [ordemAleatoriaSvg, setOrdemAleatoriaSvg] = useState(<ImRadioUnchecked/>)
+    const [obrasAntigasCriacaoSvg, setObrasAntigasCriacaoSvg] = useState(<ImRadioUnchecked/>)
+    const [obrasAntigasCriacao, setObrasAntigasCriacao] = useState(false)
+    const [obrasRecentesCriacaoSvg, sestObrasRecentesCriacaoSvg] = useState(<ImRadioUnchecked/>) 
+    const [obrasRecentesCriacao, sestObrasRecentesCriacao] = useState(false) 
     const [todosAssuntos, setTodosAssuntos] = useState('')
     const [carregandoAssunto, setCarregandoAssunto] = useState(false)
 
@@ -59,6 +63,10 @@ export const Obras = () => {
             setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
             setOrdemAleatoria(false)
             setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+            setObrasAntigasCriacao(false)
+            setObrasAntigasCriacaoSvg(<ImRadioUnchecked/>)
+            sestObrasRecentesCriacao(false)
+            sestObrasRecentesCriacaoSvg(<ImRadioUnchecked/>)
         }
     }
 
@@ -82,6 +90,10 @@ export const Obras = () => {
             setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
             setOrdemAleatoria(false)
             setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+            setObrasAntigasCriacao(false)
+            setObrasAntigasCriacaoSvg(<ImRadioUnchecked/>)
+            sestObrasRecentesCriacao(false)
+            sestObrasRecentesCriacaoSvg(<ImRadioUnchecked/>)
         }
     }
 
@@ -105,6 +117,10 @@ export const Obras = () => {
             setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
             setOrdemAleatoria(false)
             setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+            setObrasAntigasCriacao(false)
+            setObrasAntigasCriacaoSvg(<ImRadioUnchecked/>)
+            sestObrasRecentesCriacao(false)
+            sestObrasRecentesCriacaoSvg(<ImRadioUnchecked/>)
         }
     }
 
@@ -128,6 +144,10 @@ export const Obras = () => {
             setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
             setOrdemAleatoria(false)
             setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+            setObrasAntigasCriacao(false)
+            setObrasAntigasCriacaoSvg(<ImRadioUnchecked/>)
+            sestObrasRecentesCriacao(false)
+            sestObrasRecentesCriacaoSvg(<ImRadioUnchecked/>)
 
         }
     }
@@ -152,6 +172,10 @@ export const Obras = () => {
             setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
             setOrdemAleatoria(false)
             setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+            setObrasAntigasCriacao(false)
+            setObrasAntigasCriacaoSvg(<ImRadioUnchecked/>)
+            sestObrasRecentesCriacao(false)
+            sestObrasRecentesCriacaoSvg(<ImRadioUnchecked/>)
         }
     }
 
@@ -175,6 +199,10 @@ export const Obras = () => {
             setObrasAntigasSvg(<ImRadioUnchecked/>)
             setOrdemAleatoria(false)
             setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+            setObrasAntigasCriacao(false)
+            setObrasAntigasCriacaoSvg(<ImRadioUnchecked/>)
+            sestObrasRecentesCriacao(false)
+            sestObrasRecentesCriacaoSvg(<ImRadioUnchecked/>)
         }
     }
 
@@ -198,11 +226,92 @@ export const Obras = () => {
             setObrasRecentesSvg(<ImRadioUnchecked/>)
             setObrasAntigas(false)
             setObrasAntigasSvg(<ImRadioUnchecked/>)
-            
+            setObrasAntigasCriacao(false)
+            setObrasAntigasCriacaoSvg(<ImRadioUnchecked/>)
+            sestObrasRecentesCriacao(false)
+            sestObrasRecentesCriacaoSvg(<ImRadioUnchecked/>) 
+        }
+    }
+
+    const ativarObrasAntigasCriacao = () => {
+        if(obrasAntigasCriacao){
+            setObrasAntigasCriacao(false)
+            setObrasAntigasCriacaoSvg(<ImRadioUnchecked/>)
+        }else{
+            pesquisarPorMaisAntigaCriacao()
+            setObrasAntigasCriacao(true)
+            setObrasAntigasCriacaoSvg(<ImRadioChecked/>)
+            setOrdemAleatoria(false)
+            setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+            setOrdemAlfabetica(false)
+            setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
+            setBuscarPorAutor(false)
+            setBuscarPorAutorSvg(<ImRadioUnchecked/>)
+            setCapistranoAbreu(false)
+            setCapistranoAbreuSvg(<ImRadioUnchecked/>)
+            setTodosOsAutores(false)
+            setTodosOsAutoresSvg(<ImRadioUnchecked/>)
+            setObrasRecentes(false)
+            setObrasRecentesSvg(<ImRadioUnchecked/>)
+            setObrasAntigas(false)
+            setObrasAntigasSvg(<ImRadioUnchecked/>)
+            sestObrasRecentesCriacao(false)
+            sestObrasRecentesCriacaoSvg(<ImRadioUnchecked/>) 
+        }
+    }
+
+    const ativarObrasRecentesCriacao = () => {
+        if(obrasRecentesCriacao){
+            sestObrasRecentesCriacao(false)
+            sestObrasRecentesCriacaoSvg(<ImRadioUnchecked/>)
+        }else{
+            pesquisarPorMaisRecenteCriacao()
+            sestObrasRecentesCriacao(true)
+            sestObrasRecentesCriacaoSvg(<ImRadioChecked/>) 
+            setOrdemAleatoria(false)
+            setOrdemAleatoriaSvg(<ImRadioUnchecked/>)
+            setOrdemAlfabetica(false)
+            setOrdemAlfabeticaSvg(<ImRadioUnchecked/>)
+            setBuscarPorAutor(false)
+            setBuscarPorAutorSvg(<ImRadioUnchecked/>)
+            setCapistranoAbreu(false)
+            setCapistranoAbreuSvg(<ImRadioUnchecked/>)
+            setTodosOsAutores(false)
+            setTodosOsAutoresSvg(<ImRadioUnchecked/>)
+            setObrasRecentes(false)
+            setObrasRecentesSvg(<ImRadioUnchecked/>)
+            setObrasAntigas(false)
+            setObrasAntigasSvg(<ImRadioUnchecked/>)       
+            setObrasAntigasCriacao(false)
+            setObrasAntigasCriacaoSvg(<ImRadioUnchecked/>)
         }
     }
 
     // Pegar Obras Por Id
+
+    const pesquisarPorMaisAntigaCriacao = async () => {
+        try {
+            const res = await api.get('/mostrar_obras_criadas_antigas')
+            setCarregando(true)
+            setPegarObras(res.data)
+            setModelFiltro(false)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const pesquisarPorMaisRecenteCriacao = async () => {
+        try {
+            const res = await api.get('/mostrar_obras_criadas_recentes')
+            setCarregando(true)
+            setPegarObras(res.data)
+            setModelFiltro(false)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const pesquisarObraPorNome = async () => {
         const data = {
@@ -480,7 +589,7 @@ export const Obras = () => {
                                         
                                             <h2 className='filtros'>FILTROS</h2>
                                             <div className="main-obras-todas-container-mostrar-container-obras-classificacao">
-                                                <p>Classificação</p>
+                                                <p>Data de publicação</p>
                                                 <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes">
                                                     <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes-obras-recentes check-box" onClick={ativarObrasRecentes}>
                                                         {obrasRecentesSvg}
@@ -489,6 +598,23 @@ export const Obras = () => {
 
                                                     <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes-obras-antigas check-box" onClick={ativarObrasAntigas}>
                                                         {obrasAntigasSvg}
+                                                        <p>Obras antigas</p>
+                                                    </div>
+                                                </div>
+
+                                                
+                                            </div>
+
+                                            <div className="main-obras-todas-container-mostrar-container-obras-classificacao">
+                                                <p>Data de criação</p>
+                                                <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes">
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes-obras-recentes check-box" onClick={ativarObrasRecentesCriacao}>
+                                                        {obrasRecentesCriacaoSvg}
+                                                        <p>Obras recentes</p>
+                                                    </div>
+
+                                                    <div className="main-obras-todas-container-mostrar-container-obras-classificacao-opcoes-obras-antigas check-box" onClick={ativarObrasAntigasCriacao}>
+                                                        {obrasAntigasCriacaoSvg}
                                                         <p>Obras antigas</p>
                                                     </div>
                                                 </div>
