@@ -220,6 +220,7 @@ export const Obras = () => {
                 setPegarObras(res.data)
                 setObraNaoEncontrada(false)
             }
+
             
         } catch (error) {
             console.log(error)
@@ -233,8 +234,8 @@ export const Obras = () => {
             setPegarObraId(res.data)
             setCarregandoId(true)
             setTitulo(res.data.titulo)
-            console.log(res.data)
             containerObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+            console.log(res.data)
 
         } catch (error) {
             console.log(error)
@@ -272,7 +273,6 @@ export const Obras = () => {
             if (res.data.status === 400){
                 setCarregandoAssunto(false)
             }else{
-                console.log(res.data)
                 setTodosAssuntos(res.data)
                 setCarregandoAssunto(true)
             }
@@ -295,15 +295,12 @@ export const Obras = () => {
         try {
 
             const res = await api.post('/mostrar_todas_obras_assunto', data)
-            console.log(res.data)
             setCarregando(true)
             setPegarObras(res.data)
             setModelFiltro(false)
             containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
-            
-            
-            
-            
+            console.log(res.data)
+    
         } catch (error) {
             console.log(error)
         }
@@ -337,7 +334,7 @@ export const Obras = () => {
     const pesquisaPorOrdemAlfabetica = async () => {
         try {
             const res = await api.get('/mostrar_ordem_alfabetica')
-            console.log(res)
+
             setCarregando(true)
             setPegarObras(res.data)
             setModelFiltro(false)
@@ -350,10 +347,17 @@ export const Obras = () => {
     const pesquisarTodosCapistrano = async () => {
         try {
             const res = await api.get('/mostrar_todas_capistrano')
-            setCarregando(true)
-            setPegarObras(res.data)
-            setModelFiltro(false)
-            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+
+            if(res.data.status === 400){
+                setCarregando(false)
+                setModelFiltro(false)
+            }else{
+
+                setCarregando(true)
+                setPegarObras(res.data)
+                
+                containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+            }
         } catch (error) {
             console.log(error)
         }
@@ -378,10 +382,41 @@ export const Obras = () => {
 
         try {
             const res = await api.post('/pesquisar_nome_autor', data)
-            setCarregando(true)
-            setPegarObras(res.data)
-            setModelFiltro(false)
-            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+
+            if (res.data.status == 400){
+                setModelFiltro(false)
+                setCarregando(false)
+            }else{
+                setCarregando(true)
+                setPegarObras(res.data)
+                setModelFiltro(false)
+                containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const pesquisarPorNomeAutorTopico = async (AutorTopico) => {
+        const data = {
+            nome:AutorTopico
+        }
+
+        try {
+            const res = await api.post('/pesquisar_nome_autor', data)
+
+            if (res.data.status == 400){
+                setModelFiltro(false)
+                setCarregando(false)
+            }else{
+                setCarregando(true)
+                setPegarObras(res.data)
+                setModelFiltro(false)
+                containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+
+            }
         } catch (error) {
             console.log(error)
         }
@@ -608,6 +643,15 @@ export const Obras = () => {
                                                 </>
                                             ))}
                                         </div>
+
+                                        <div className="main-obras-ver-container-mostrar-container-obra-data-criacao">
+                                            
+                                            <>
+                                                <h4>Data de Criação</h4>
+                                                <p>{pegarObraId.data_criacao}</p>
+                                            </>
+                                            
+                                        </div>
                                         <div className="main-obras-ver-container-mostrar-container-obra-traco">
 
                                         </div>
@@ -616,6 +660,23 @@ export const Obras = () => {
                                             {pegarObraId.links.split(',').map((link) => (
                                                 <a href={link} >{link}</a>
                                             ))}
+                                            
+                                            
+                                        </div>
+
+                                        <div className="main-obras-ver-container-mostrar-container-obra-autores">
+                                            <h4>Autores</h4>
+
+                                            <ul>
+                                                {pegarObraId.autores.split(',').map((autor) => (
+                                                    <>
+                                                        <li onClick={() => pesquisarPorNomeAutorTopico(autor.trim())}>
+                                                            {autor.trim()}
+                                                        </li>
+                                                    </>
+                                                ))}
+
+                                            </ul>
                                             
                                             
                                         </div>

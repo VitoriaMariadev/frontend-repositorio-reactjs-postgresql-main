@@ -17,6 +17,7 @@ export const EditarObrasFormulario = () => {
     const [resumo, setResumo] = useState('')
     const [assunto, setAssuntos] = useState('')
     const [imagem, setImagem] = useState('')
+    const [dataCricao, setData] = useState('')
     const [listaAutores, setListaAutores] = useState([])
     const [listaLinks, setlistaLinks] = useState([])
     const [listaAssuntos, setListaAssuntos] = useState([])
@@ -56,6 +57,8 @@ export const EditarObrasFormulario = () => {
             setlistaLinks(res.data.links.split(','))
             setListaAutores(res.data.autores.split(','))
             setListaAssuntos(res.data.assuntos.split(','))
+            const novaDataCriacao = convertendoData(res.data.data_criacao)
+            setData(novaDataCriacao)
 
         } catch (error) {
             console.log(error)
@@ -69,6 +72,7 @@ export const EditarObrasFormulario = () => {
         const dataHora = new Date()
         const novaDescricao = descricao.replace(/\n/g, "<br />")
         const novoResumo = resumo.replace(/\n/g, "<br />")
+        const dataFormatada = new Date(dataCricao);
 
         const data = {
             id_obra:parseInt(id_obra),
@@ -80,10 +84,9 @@ export const EditarObrasFormulario = () => {
             assunto:listaAssuntos,
             link: listaLinks,
             img: listaImagens,
-            usuario:parseInt(idUsuario)
+            usuario:parseInt(idUsuario),
+            data_criacao:dataFormatada.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
         }
-
-        console.log(data)
 
         console.log(data)
 
@@ -109,6 +112,14 @@ export const EditarObrasFormulario = () => {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    // Convertendo a data
+
+    const convertendoData = (dataCricao) => {
+        var parts = dataCricao.split('/');
+        var novaData = parts[2] + '-' + parts[1] + '-' + parts[0];
+        return novaData;
     }
 
     const cadastrarAutores = async () => {
@@ -474,6 +485,12 @@ export const EditarObrasFormulario = () => {
                             <div className="main-editar-formulario-obras-container-formulario-esquerda-descricao">
                                 <p>Descrição da obra</p>
                                 <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)}></textarea>
+                            </div>
+
+                            <div className="main-editar-formulario-obras-container-formulario-esquerda-data">
+                                <p>Data da obra</p>
+                                <input type="date" value={dataCricao} onChange={(e) => setData(e.target.value)}/>
+
                             </div>
 
                             <div className="main-editar-formulario-obras-container-formulario-esquerda-link">
