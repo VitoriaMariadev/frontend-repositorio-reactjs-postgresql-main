@@ -3,15 +3,39 @@ import './style.css'
 import { NavLink} from 'react-router-dom'
 
 import { FaBars,FaTimes,FaUserAlt } from "react-icons/fa";
-
+import {IoIosLogOut} from 'react-icons/io'
 
 import Logo from '../../Images/Logo.png'
 import { useEffect, useState } from 'react';
 import { api } from '../../Services/API';
-import { pegarNomeUsuario } from '../../Services/localstorage';
+import { pegarNomeUsuario, pegarToken, desconectar } from '../../Services/localstorage';
 function Header (){
 
     const [usuario,setUsuario] = useState('')
+
+    const finalizarSessao = async () =>{
+
+        const data ={
+            headers:{
+                token:pegarToken()
+            }
+        }
+
+        console.log(data)
+
+        try{
+
+            const res = await api.post('/deletar_token',data)
+
+            if(res.status === 200){
+                desconectar()
+                window.location.href = '/'
+            }
+
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     const pegarUsuario = async() =>{
 
@@ -57,34 +81,40 @@ function Header (){
 
                     <ul>
 
-                        <il><NavLink to="/">Inicio</NavLink></il>
-                        <il><NavLink to="/Obras">Obras</NavLink></il>
-                        <il><NavLink to="/Biografia">Biografia</NavLink></il>
-                        <il className="opcao-configurar">
+                        <li><NavLink to="/">Inicio</NavLink></li>
+                        <li><NavLink to="/Obras">Obras</NavLink></li>
+                        <li><NavLink to="/Biografia">Biografia</NavLink></li>
+                        <li className="opcao-configurar">
                             <a className="configurar-obras" to="#">Configurar obras
 
                                 <ul className='menu-dropdown'>
-                                    <il><h3>CONFIGURAÇÕES</h3></il>
-                                    <il><NavLink to="/Cadastrar_Obras" >PUBLICAR OBRA</NavLink></il>
-                                    <il><NavLink to="/Editar_Obras" >EDITAR OBRA</NavLink></il>
-                                    <il><NavLink to="/Deletar_Obras" >DELETAR OBRA</NavLink></il>
+                                    <li><h3>CONFIGURAÇÕES</h3></li>
+                                    <li><NavLink to="/Cadastrar_Obras" >PUBLICAR OBRA</NavLink></li>
+                                    <li><NavLink to="/Editar_Obras" >EDITAR OBRA</NavLink></li>
+                                    <li><NavLink to="/Deletar_Obras" >DELETAR OBRA</NavLink></li>
                                 </ul>
 
-                            </a></il>
-                        <il><NavLink to="/Cadastrar_Usuario">Cadastrar Usuario</NavLink></il>
-                        <il><NavLink to="/Homenagens">Homenagens</NavLink></il>
-                        
+                            </a></li>
+                        <li><NavLink to="/Cadastrar_Usuario">Cadastrar Usuario</NavLink></li>
+                        <li><NavLink to="/Homenagens">Homenagens</NavLink></li>          
                     </ul>
+
+                    <div className="logout">
+                        <div className="logout-icon" onClick={finalizarSessao}> 
+                            {<IoIosLogOut/>}
+                        </div>
+                        
+                    </div>
                     </>
                 ):(
                     <>
 
                         <ul>
 
-                            <il><NavLink to="/">Inicio</NavLink></il>
-                            <il><NavLink to="/Obras">Obras</NavLink></il>
-                            <il><NavLink to="/Biografia">Biografia</NavLink></il>
-                            <il><NavLink to="/Homenagens">Homenagens</NavLink></il>
+                            <li><NavLink to="/">Inicio</NavLink></li>
+                            <li><NavLink to="/Obras">Obras</NavLink></li>
+                            <li><NavLink to="/Biografia">Biografia</NavLink></li>
+                            <li><NavLink to="/Homenagens">Homenagens</NavLink></li>
                             <NavLink to="/Login"><FaUserAlt className='container-navbar-usuario'/></NavLink>
                             
                         </ul>

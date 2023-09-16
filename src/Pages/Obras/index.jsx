@@ -697,8 +697,7 @@ export const Obras = () => {
 
                                                             <div className="main-obras-todas-container-mostrar-container-obras-container-paragrafo">
                                                                 {item.resumo.split('<br />').map((itens) => (
-                                                                    <>
-                                                                        
+                                                                    <>       
                                                                         <p>{itens}</p>
                                                                         <br/>
                                                                     
@@ -756,6 +755,16 @@ export const Obras = () => {
                                                 ))}
                                             </ul>
 
+                                        </div>
+
+                                        <div className="main-obras-ver-container-mostrar-container-obra-img">
+                                            {pegarObraId.imgs.split(',').map((item) => (
+                                                <>   
+                                                         
+                                                    <img src={item} alt="imagem" />
+                                                
+                                                </>
+                                            ))}
                                         </div>
                                         
                                         <div className="main-obras-ver-container-mostrar-container-obra-descricao">
@@ -824,7 +833,7 @@ export const Obras = () => {
                                     <div className="main-obras-ver-container-mostrar-container-rodape-container">
                                         {carregandoId&&(
                                             <>
-                                                <p>Publicado por {pegarObraId.usuario}</p>
+                                                <p>Publicado por <span>{pegarObraId.usuario}</span></p>
                                                 <p>{pegarObraId.data_publi}</p>
                                             
                                             </>
