@@ -546,6 +546,21 @@ export const Obras = () => {
 
     }
 
+    const pesquisarPorIdUsuario = async (id) => {
+
+        try {
+            const res = await api.get("/mostrar_obras_id_usuario/" + id)
+            setCarregando(true)
+            setPegarObras(res.data)
+            containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+        } catch (error) {
+            console.log(error)
+        }
+
+
+
+    }
+
     useEffect(() => {
         obras()
     }, [])
@@ -833,7 +848,7 @@ export const Obras = () => {
                                     <div className="main-obras-ver-container-mostrar-container-rodape-container">
                                         {carregandoId&&(
                                             <>
-                                                <p>Publicado por <span>{pegarObraId.usuario}</span></p>
+                                                <p>Publicado por <span onClick={() => pesquisarPorIdUsuario(pegarObraId.id_usuario)}>{pegarObraId.usuario}</span></p>
                                                 <p>{pegarObraId.data_publi}</p>
                                             
                                             </>

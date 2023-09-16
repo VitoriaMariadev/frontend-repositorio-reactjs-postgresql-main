@@ -6,6 +6,7 @@ import { api } from "../../Services/API"
 import { pegarIdUsuario } from "../../Services/localstorage"
 import { Aviso } from "../../Components/Aviso"
 import {BsFillTrash3Fill} from 'react-icons/bs'
+import {FiChevronDown} from 'react-icons/fi'
 
 export const CadastrarObras = () => {
     const [titulo, setTitulo] = useState('')
@@ -40,6 +41,7 @@ export const CadastrarObras = () => {
     const [tipoMensagem, setTipoMensagem] = useState('')
     const [mensagem, setMensagem] = useState('')
     const [verImagem, setVerImagem] = useState('')
+    const [autoresCadastradosModel, setAutoresCadastradosModel] = useState(false)
 
     // Cadastrar Informações
 
@@ -257,6 +259,14 @@ export const CadastrarObras = () => {
         }
     }
 
+    const AbrirModelAutoresCadastrados = () => {
+        if (autoresCadastradosModel) {
+            setAutoresCadastradosModel(false)
+        }else{
+            setAutoresCadastradosModel(true)
+        }
+    }
+
     // Adicionar as Listas
 
     const adicionarAutores = (nome) => {
@@ -464,6 +474,12 @@ export const CadastrarObras = () => {
                     </div>
                 )}
 
+                {autoresCadastradosModel&&(
+                    <div className="model-autores-cadastrados">
+                        
+                    </div>
+                )}
+
                 <div className="main-cadastrar-obras-container">
                     <div className="main-cadastrar-obras-container-titulo">
                         <h1>PUBLICAR OBRA</h1>
@@ -505,16 +521,10 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-direita-autores">
                                 <p>Autores</p>
                                 <div className="main-cadastrar-obras-container-formulario-direita-autores-input">
-                                    <select onChange={(e) => setAdicionarAutor(e.target.value)}>
-                                        <option value="none"></option>
-                                        {carregandoAutor&&(
-                                            <>
-                                                {todosAutoes.map((item) => (
-                                                    <option value={item.nome}>{item.nome}</option>
-                                                ))}
-                                            </>
-                                        )}
-                                    </select>
+                                    <div className="main-cadastrar-obras-container-formulario-direita-autores-input-container" onClick={AbrirModelAutoresCadastrados}>
+                                    {/* onChange={(e) => setAdicionarAutor(e.target.value)} */}
+                                        {<FiChevronDown/>}
+                                    </div>
                                     <button onClick={AbrirModelAutores}>+</button>
                                 </div>
                                 <ul>

@@ -523,8 +523,8 @@ $font: 'Roboto', sans-serif;
     justify-content: space-between;
 }
 
-.main-cadastrar-obras-container-formulario-direita-autores-input > select{
-    width: 85%;
+.main-cadastrar-obras-container-formulario-direita-autores-input-container{
+    width: 80%;
     height: 100%;
     border: none;
     outline: none;
@@ -535,6 +535,15 @@ $font: 'Roboto', sans-serif;
     font-weight: 400;
     font-family: $font;
     font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    cursor: pointer;
+}
+
+.main-cadastrar-obras-container-formulario-direita-autores-input-container > svg{
+    width: 9%;
+    height: 90%;
 }
 
 .main-cadastrar-obras-container-formulario-direita-autores-input > button{
