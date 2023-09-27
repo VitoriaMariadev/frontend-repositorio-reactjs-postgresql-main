@@ -7,6 +7,7 @@ import { pegarIdUsuario } from "../../Services/localstorage"
 import { Aviso } from "../../Components/Aviso"
 import {BsFillTrash3Fill} from 'react-icons/bs'
 import {FiChevronDown} from 'react-icons/fi'
+import {AiOutlineSearch} from 'react-icons/ai'
 
 export const CadastrarObras = () => {
     const [titulo, setTitulo] = useState('')
@@ -35,13 +36,14 @@ export const CadastrarObras = () => {
     const [modelImagens, setModelImagens] = useState('')
     const [modelMensagem, setModelMensagem] = useState('')
     const [modelVerImagem, setModelVerImagem] = useState(false)
+    const [modelProcurarAutores, setModelProcurarAutores] = useState(false)
+    const [modelProcurarTopicos, setModelProcurarTopicos] = useState(false)
     const [adicionarAutor, setAdicionarAutor] = useState('none')
     const [adicionarAssunto, setAdicionarAssunto] = useState('none')
     const [idUsuario, setIdUsuario] = useState('')
     const [tipoMensagem, setTipoMensagem] = useState('')
     const [mensagem, setMensagem] = useState('')
     const [verImagem, setVerImagem] = useState('')
-    const [autoresCadastradosModel, setAutoresCadastradosModel] = useState(false)
 
     // Cadastrar Informações
 
@@ -259,24 +261,31 @@ export const CadastrarObras = () => {
         }
     }
 
-    const AbrirModelAutoresCadastrados = () => {
-        if (autoresCadastradosModel) {
-            setAutoresCadastradosModel(false)
+    const AbrirModelProcurarAutores = () => {
+        if (modelProcurarAutores){
+            setModelProcurarAutores(false)
         }else{
-            setAutoresCadastradosModel(true)
+            setModelProcurarAutores(true)
+        }
+    }
+
+    const AbrirModelProcurarTopicos = () => {
+        if(modelProcurarTopicos){
+            setModelProcurarTopicos(false)
+        }else{
+            setModelProcurarTopicos(true)
         }
     }
 
     // Adicionar as Listas
 
     const adicionarAutores = (nome) => {
-        if(adicionarAutor !== 'none' && !listaAutores.includes(adicionarAutor)){
-            const novoAutor = adicionarAutor
+            const novoAutor = nome
             const novaListaAutor = [...listaAutores, novoAutor]
             setListaAutores(novaListaAutor)
             console.log('lista de autores', listaAutores)
+            setModelProcurarAutores(false)
 
-        }
     }
 
     const adicionarAssuntos = (nome) => {
@@ -474,11 +483,42 @@ export const CadastrarObras = () => {
                     </div>
                 )}
 
-                {autoresCadastradosModel&&(
-                    <div className="model-autores-cadastrados">
+                {modelProcurarAutores&&(
+                    <div className="model-procurar-autores">
+                        <div className="model-procurar-autores-titulo">
+                            <p onClick={AbrirModelProcurarAutores}>X</p>
+                            <h2>AUTORES</h2>
+                        </div>
+
+                        <div className="model-procurar-autores-pesquisa">
+                            <div className="model-procurar-autores-pesquisa-icon">
+                                <AiOutlineSearch/>
+                            </div>
+                            <input type="text" placeholder="Procurar autor" />
+                        </div>
+
+                        {carregandoAutor?(
+                            <>
+
+                            {todosAutoes.map}
+                            <div className="model-procurar-autores-container">
+                                    {todosAutoes.map((item) => (
+                                        <div className="model-procurar-autores-container-nomes">
+                                            <h3 onClick={() => adicionarAutores(item.nome)}>{item.nome}</h3>
+                                        </div>
+                                    ))}
+                                
+                            </div>
+                            </>
+                        ):(
+                            <>
+                                <p>Carregando...</p>
+                            </>
+                        )}
                         
                     </div>
                 )}
+
 
                 <div className="main-cadastrar-obras-container">
                     <div className="main-cadastrar-obras-container-titulo">
@@ -521,7 +561,7 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-direita-autores">
                                 <p>Autores</p>
                                 <div className="main-cadastrar-obras-container-formulario-direita-autores-input">
-                                    <div className="main-cadastrar-obras-container-formulario-direita-autores-input-container" onClick={AbrirModelAutoresCadastrados}>
+                                    <div className="main-cadastrar-obras-container-formulario-direita-autores-input-container" onClick={AbrirModelProcurarAutores}>
                                     {/* onChange={(e) => setAdicionarAutor(e.target.value)} */}
                                         {<FiChevronDown/>}
                                     </div>
