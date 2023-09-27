@@ -38,8 +38,6 @@ export const CadastrarObras = () => {
     const [modelVerImagem, setModelVerImagem] = useState(false)
     const [modelProcurarAutores, setModelProcurarAutores] = useState(false)
     const [modelProcurarTopicos, setModelProcurarTopicos] = useState(false)
-    const [adicionarAutor, setAdicionarAutor] = useState('none')
-    const [adicionarAssunto, setAdicionarAssunto] = useState('none')
     const [idUsuario, setIdUsuario] = useState('')
     const [tipoMensagem, setTipoMensagem] = useState('')
     const [mensagem, setMensagem] = useState('')
@@ -280,20 +278,24 @@ export const CadastrarObras = () => {
     // Adicionar as Listas
 
     const adicionarAutores = (nome) => {
+        if (!listaAutores.includes(nome)){
             const novoAutor = nome
             const novaListaAutor = [...listaAutores, novoAutor]
             setListaAutores(novaListaAutor)
             console.log('lista de autores', listaAutores)
             setModelProcurarAutores(false)
 
+        }
+
     }
 
     const adicionarAssuntos = (nome) => {
-        if(adicionarAssunto !== 'none' && !listaAssuntos.includes(adicionarAssunto)){
-            const novoAssunto = adicionarAssunto
+        if(!listaAssuntos.includes(nome)){
+            const novoAssunto = nome
             const novaListaAssunto= [...listaAssuntos, novoAssunto]
             setListaAssuntos(novaListaAssunto)
             console.log('lista de assuntos', listaAssuntos)
+            setModelProcurarTopicos(false)
 
         }
     }
@@ -368,13 +370,6 @@ export const CadastrarObras = () => {
         pegarImagens()
     }, [])
 
-    useEffect(() => {
-        adicionarAutores()
-    }, [adicionarAutor])
-
-    useEffect(() => {
-        adicionarAssuntos()
-    }, [adicionarAssunto])
 
     return(
         <>
@@ -500,7 +495,6 @@ export const CadastrarObras = () => {
                         {carregandoAutor?(
                             <>
 
-                            {todosAutoes.map}
                             <div className="model-procurar-autores-container">
                                     {todosAutoes.map((item) => (
                                         <div className="model-procurar-autores-container-nomes">
@@ -518,6 +512,43 @@ export const CadastrarObras = () => {
                         
                     </div>
                 )}
+
+                {modelProcurarTopicos&&(
+                    <div className="model-procurar-topicos">
+                        <div className="model-procurar-topicos-titulo">
+                            <p onClick={AbrirModelProcurarTopicos}>X</p>
+                            <h2>TOPICOS</h2>
+                        </div>
+
+                        <div className="model-procurar-topicos-pesquisa">
+                            <div className="model-procurar-topicos-pesquisa-icon">
+                                <AiOutlineSearch/>
+                            </div>
+                            <input type="text" placeholder="Procurar autor" />
+                        </div>
+
+                        {carregandoAssunto?(
+                            <>
+
+                            <div className="model-procurar-topicos-container">
+                                    {todosAssuntos.map((item) => (
+                                        <div className="model-procurar-topicos-container-nomes">
+                                            <h3 onClick={() => adicionarAssuntos(item.nome)}>{item.nome}</h3>
+                                        </div>
+                                    ))}
+                                
+                            </div>
+                            </>
+                        ):(
+                            <>
+                                <p>Carregando...</p>
+                            </>
+                        )}
+                        
+                    </div>
+                )}
+
+                
 
 
                 <div className="main-cadastrar-obras-container">
@@ -562,7 +593,6 @@ export const CadastrarObras = () => {
                                 <p>Autores</p>
                                 <div className="main-cadastrar-obras-container-formulario-direita-autores-input">
                                     <div className="main-cadastrar-obras-container-formulario-direita-autores-input-container" onClick={AbrirModelProcurarAutores}>
-                                    {/* onChange={(e) => setAdicionarAutor(e.target.value)} */}
                                         {<FiChevronDown/>}
                                     </div>
                                     <button onClick={AbrirModelAutores}>+</button>
@@ -583,18 +613,9 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-direita-topicos">
                                 <p>Tópicos</p>
                                 <div className="main-cadastrar-obras-container-formulario-direita-topicos-input">
-                                    <select onChange={(e) => setAdicionarAssunto(e.target.value)}>
-                                        <option value="none"></option>
-                                        {carregandoAssunto&&(
-                                            <>
-                                            
-                                                {todosAssuntos.map((item) => (
-                                                    <option value={item.nome}>{item.nome}</option>
-                                                ))}
-
-                                            </>
-                                        )}
-                                    </select>
+                                <div className="main-cadastrar-obras-container-formulario-direita-autores-input-container" onClick={AbrirModelProcurarTopicos}>
+                                        {<FiChevronDown/>}
+                                    </div>
                                     <button onClick={AbrirModelAssuntos}>+</button>
                                 </div>
                                 <ul>
