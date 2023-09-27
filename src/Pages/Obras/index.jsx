@@ -561,10 +561,7 @@ export const Obras = () => {
 
     }
 
-    useEffect(() => {
-        obras()
-    }, [])
-
+    
     useEffect(() => {
         pesquisarObraPorNome()
     }, [pesquisarTitulo])

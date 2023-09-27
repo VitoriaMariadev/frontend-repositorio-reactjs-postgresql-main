@@ -95,8 +95,19 @@ function Header (){
                                 </ul>
 
                             </a></li>
-                        <li><NavLink to="/Cadastrar_Usuario">Cadastrar Usuario</NavLink></li>
-                        <li><NavLink to="/Homenagens">Homenagens</NavLink></li>          
+                        <li><NavLink to="/Cadastrar_Usuario">Cadastrar Usuario</NavLink></li>  
+                        <li className="opcao-configurar">
+                            <a className="configurar-obras" to="#">Homenagens
+
+                                <ul className='menu-dropdown' id='menu-homenagens'>  
+                                    <li><h3>CONFIGURAÇÕES</h3></li>
+                                    <li><NavLink to="/Homenagens" >VER HOMENAGENS</NavLink></li>
+                                    <li><NavLink to="/Homenagens" >PUBLICAR HOMENAGENS</NavLink></li>
+                                    <li><NavLink to="/Editar_Obras" >EDITAR HOMENAGENS</NavLink></li>
+                                    <li><NavLink to="/Deletar_Obras" >DELETAR HOMENAGENS</NavLink></li>
+                                </ul>
+
+                            </a></li> 
                     </ul>
 
                     <div className="logout">
