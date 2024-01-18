@@ -6,8 +6,6 @@ import { api } from "../../Services/API"
 import { pegarIdUsuario } from "../../Services/localstorage"
 import { Aviso } from "../../Components/Aviso"
 import {BsFillTrash3Fill} from 'react-icons/bs'
-import {FiChevronDown} from 'react-icons/fi'
-import {AiOutlineSearch} from 'react-icons/ai'
 
 export const CadastrarObras = () => {
     const [titulo, setTitulo] = useState('')
@@ -36,8 +34,8 @@ export const CadastrarObras = () => {
     const [modelImagens, setModelImagens] = useState('')
     const [modelMensagem, setModelMensagem] = useState('')
     const [modelVerImagem, setModelVerImagem] = useState(false)
-    const [modelProcurarAutores, setModelProcurarAutores] = useState(false)
-    const [modelProcurarTopicos, setModelProcurarTopicos] = useState(false)
+    const [adicionarAutor, setAdicionarAutor] = useState('none')
+    const [adicionarAssunto, setAdicionarAssunto] = useState('none')
     const [idUsuario, setIdUsuario] = useState('')
     const [tipoMensagem, setTipoMensagem] = useState('')
     const [mensagem, setMensagem] = useState('')
@@ -50,13 +48,15 @@ export const CadastrarObras = () => {
         const dataHora = new Date()
         const novaDescricao = descricao.replace(/\n/g, "<br />")
         const novoResumo = resumo.replace(/\n/g, "<br />")
+        const dataFormatada = new Date(dataCricao);
+        console.log(dataFormatada)
 
         const data = {
             titulo,
             descricao:novaDescricao,
             resumo:novoResumo,
             data_publi:dataHora.toLocaleString('pt-BR', { timezone: 'UTC' }),
-            data_criacao:dataCricao,
+            data_criacao:dataFormatada.toLocaleDateString('pt-BR', {timeZone: 'UTC'}),
             autor: listaAutores,
             assunto:listaAssuntos,
             link: listaLinks,
@@ -257,43 +257,24 @@ export const CadastrarObras = () => {
         }
     }
 
-    const AbrirModelProcurarAutores = () => {
-        if (modelProcurarAutores){
-            setModelProcurarAutores(false)
-        }else{
-            setModelProcurarAutores(true)
-        }
-    }
-
-    const AbrirModelProcurarTopicos = () => {
-        if(modelProcurarTopicos){
-            setModelProcurarTopicos(false)
-        }else{
-            setModelProcurarTopicos(true)
-        }
-    }
-
     // Adicionar as Listas
 
     const adicionarAutores = (nome) => {
-        if (!listaAutores.includes(nome)){
-            const novoAutor = nome
+        if(adicionarAutor !== 'none' && !listaAutores.includes(adicionarAutor)){
+            const novoAutor = adicionarAutor
             const novaListaAutor = [...listaAutores, novoAutor]
             setListaAutores(novaListaAutor)
             console.log('lista de autores', listaAutores)
-            setModelProcurarAutores(false)
 
         }
-
     }
 
     const adicionarAssuntos = (nome) => {
-        if(!listaAssuntos.includes(nome)){
-            const novoAssunto = nome
+        if(adicionarAssunto !== 'none' && !listaAssuntos.includes(adicionarAssunto)){
+            const novoAssunto = adicionarAssunto
             const novaListaAssunto= [...listaAssuntos, novoAssunto]
             setListaAssuntos(novaListaAssunto)
             console.log('lista de assuntos', listaAssuntos)
-            setModelProcurarTopicos(false)
 
         }
     }
@@ -368,6 +349,13 @@ export const CadastrarObras = () => {
         pegarImagens()
     }, [])
 
+    useEffect(() => {
+        adicionarAutores()
+    }, [adicionarAutor])
+
+    useEffect(() => {
+        adicionarAssuntos()
+    }, [adicionarAssunto])
 
     return(
         <>
@@ -476,79 +464,6 @@ export const CadastrarObras = () => {
                     </div>
                 )}
 
-                {modelProcurarAutores&&(
-                    <div className="model-procurar-autores">
-                        <div className="model-procurar-autores-titulo">
-                            <p onClick={AbrirModelProcurarAutores}>X</p>
-                            <h2>AUTORES</h2>
-                        </div>
-
-                        <div className="model-procurar-autores-pesquisa">
-                            <div className="model-procurar-autores-pesquisa-icon">
-                                <AiOutlineSearch/>
-                            </div>
-                            <input type="text" placeholder="Procurar autor" />
-                        </div>
-
-                        {carregandoAutor?(
-                            <>
-
-                            <div className="model-procurar-autores-container">
-                                    {todosAutoes.map((item) => (
-                                        <div className="model-procurar-autores-container-nomes">
-                                            <h3 onClick={() => adicionarAutores(item.nome)}>{item.nome}</h3>
-                                        </div>
-                                    ))}
-                                
-                            </div>
-                            </>
-                        ):(
-                            <>
-                                <p>Carregando...</p>
-                            </>
-                        )}
-                        
-                    </div>
-                )}
-
-                {modelProcurarTopicos&&(
-                    <div className="model-procurar-topicos">
-                        <div className="model-procurar-topicos-titulo">
-                            <p onClick={AbrirModelProcurarTopicos}>X</p>
-                            <h2>TOPICOS</h2>
-                        </div>
-
-                        <div className="model-procurar-topicos-pesquisa">
-                            <div className="model-procurar-topicos-pesquisa-icon">
-                                <AiOutlineSearch/>
-                            </div>
-                            <input type="text" placeholder="Procurar autor" />
-                        </div>
-
-                        {carregandoAssunto?(
-                            <>
-
-                            <div className="model-procurar-topicos-container">
-                                    {todosAssuntos.map((item) => (
-                                        <div className="model-procurar-topicos-container-nomes">
-                                            <h3 onClick={() => adicionarAssuntos(item.nome)}>{item.nome}</h3>
-                                        </div>
-                                    ))}
-                                
-                            </div>
-                            </>
-                        ):(
-                            <>
-                                <p>Carregando...</p>
-                            </>
-                        )}
-                        
-                    </div>
-                )}
-
-                
-
-
                 <div className="main-cadastrar-obras-container">
                     <div className="main-cadastrar-obras-container-titulo">
                         <h1>PUBLICAR OBRA</h1>
@@ -569,7 +484,7 @@ export const CadastrarObras = () => {
 
                             <div className="main-cadastrar-obras-container-formulario-esquerda-data">
                                 <p>Data da obra</p>
-                                <input type="text" value={dataCricao} onChange={(e) => setData(e.target.value)}/>
+                                <input type="date" value={dataCricao} onChange={(e) => setData(e.target.value)}/>
 
                             </div>
 
@@ -590,9 +505,16 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-direita-autores">
                                 <p>Autores</p>
                                 <div className="main-cadastrar-obras-container-formulario-direita-autores-input">
-                                    <div className="main-cadastrar-obras-container-formulario-direita-autores-input-container" onClick={AbrirModelProcurarAutores}>
-                                        {<FiChevronDown/>}
-                                    </div>
+                                    <select onChange={(e) => setAdicionarAutor(e.target.value)}>
+                                        <option value="none"></option>
+                                        {carregandoAutor&&(
+                                            <>
+                                                {todosAutoes.map((item) => (
+                                                    <option value={item.nome}>{item.nome}</option>
+                                                ))}
+                                            </>
+                                        )}
+                                    </select>
                                     <button onClick={AbrirModelAutores}>+</button>
                                 </div>
                                 <ul>
@@ -611,9 +533,18 @@ export const CadastrarObras = () => {
                             <div className="main-cadastrar-obras-container-formulario-direita-topicos">
                                 <p>Tópicos</p>
                                 <div className="main-cadastrar-obras-container-formulario-direita-topicos-input">
-                                <div className="main-cadastrar-obras-container-formulario-direita-autores-input-container" onClick={AbrirModelProcurarTopicos}>
-                                        {<FiChevronDown/>}
-                                    </div>
+                                    <select onChange={(e) => setAdicionarAssunto(e.target.value)}>
+                                        <option value="none"></option>
+                                        {carregandoAssunto&&(
+                                            <>
+                                            
+                                                {todosAssuntos.map((item) => (
+                                                    <option value={item.nome}>{item.nome}</option>
+                                                ))}
+
+                                            </>
+                                        )}
+                                    </select>
                                     <button onClick={AbrirModelAssuntos}>+</button>
                                 </div>
                                 <ul>

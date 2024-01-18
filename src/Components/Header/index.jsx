@@ -103,7 +103,6 @@ function Header (){
                                     <li><h3>CONFIGURAÇÕES</h3></li>
                                     <li><NavLink to="/Homenagens" >VER HOMENAGENS</NavLink></li>
                                     <li><NavLink to="/Homenagens" >PUBLICAR HOMENAGENS</NavLink></li>
-                                    <li><NavLink to="/Editar_Obras" >EDITAR HOMENAGENS</NavLink></li>
                                     <li><NavLink to="/Deletar_Obras" >DELETAR HOMENAGENS</NavLink></li>
                                 </ul>
 

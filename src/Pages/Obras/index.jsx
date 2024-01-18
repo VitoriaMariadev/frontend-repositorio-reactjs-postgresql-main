@@ -357,8 +357,8 @@ export const Obras = () => {
             const res = await api.get('/mostrar_todas_obras')
             setPegarObras(res.data)
             setCarregando(true)
+            console.log(res.data)
             
-
         } catch (error) {
             console.log(error)
         }
@@ -568,6 +568,7 @@ export const Obras = () => {
 
     useEffect(() => {
         pegarAssuntos()
+        
     },[])
 
     return (
