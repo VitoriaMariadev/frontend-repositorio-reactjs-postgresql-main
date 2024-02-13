@@ -68,33 +68,27 @@ export const CadastrarObras = () => {
 
         try {
             
-            if (!titulo && !novaDescricao && !novoResumo && !listaAutores && !listaAssuntos && !listaLinks && !listaImagens){
-                console.log(data)
-                const res = await api.post('/cadastro_obras', data)
-                console.log(res.data)
-                if (res.data.status === 400){
-                    setTipoMensagem('erro')
-                    setMensagem(res.data.Mensagem)
-                    setModelMensagem(true)
-                    
-                }else{
-                    setModelMensagem(true)
-                    setTipoMensagem('sucesso')
-                    setMensagem(res.data.Mensagem)
-                    setTitulo('')
-                    setDescricao('')
-                    setResumo('')
-                    setListaAutores([])
-                    setListaAssuntos([])
-                    setlistaLinks([])
-                    setListaImagens([])
-                
-
-                }
-            }else{
+            console.log(data)
+            const res = await api.post('/cadastro_obras', data)
+            console.log(res.data)
+            if (res.data.status === 400){
                 setTipoMensagem('erro')
-                setMensagem('Campos Vazios')
+                setMensagem(res.data.Mensagem)
                 setModelMensagem(true)
+                
+            }else{
+                setModelMensagem(true)
+                setTipoMensagem('sucesso')
+                setMensagem(res.data.Mensagem)
+                setTitulo('')
+                setDescricao('')
+                setResumo('')
+                setListaAutores([])
+                setListaAssuntos([])
+                setlistaLinks([])
+                setListaImagens([])
+            
+
             }
             
         } catch (error) {

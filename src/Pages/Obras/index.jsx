@@ -358,7 +358,7 @@ export const Obras = () => {
             setPegarObras(res.data)
             setCarregando(true)
             console.log(res.data)
-            
+            console.log('sadasdasd')
         } catch (error) {
             console.log(error)
         }
