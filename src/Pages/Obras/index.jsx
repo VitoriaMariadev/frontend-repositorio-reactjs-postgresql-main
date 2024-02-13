@@ -423,6 +423,7 @@ export const Obras = () => {
             setPegarObras(res.data)
             setModelFiltro(false)
             containerTodasObras.current.scrollTo({ top: 0, behavior: 'smooth' })
+            console.log(res.data)
         } catch (error) {
             console.log(error)
         }
