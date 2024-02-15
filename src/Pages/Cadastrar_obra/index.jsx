@@ -44,6 +44,7 @@ export const CadastrarObras = () => {
     // Cadastrar Informações
 
     const cadastrarObra = async () => {
+        setModelMensagem(false)
 
         const dataHora = new Date()
         const novaDescricao = descricao.replace(/\n/g, "<br />")
