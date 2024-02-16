@@ -58,6 +58,7 @@ export const DeletarObras = () => {
     }
 
     const apagarObraPorId = async () => {
+        setModelMensagem(false)
         try {
             console.log(idMarcado)
             const res = await api.delete('/excluir_obra/' + idMarcado)
