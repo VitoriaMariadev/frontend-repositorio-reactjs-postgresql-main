@@ -70,7 +70,10 @@ function Header (){
     return ( 
         <header className="container">
             <div className='container-logo'>
-                <img src={Logo} alt='logo'/>
+                <a href="https://ifce.edu.br/">
+                    <img src={Logo} alt='logo'/>
+                </a>
+                
             </div>
 
 
@@ -95,7 +98,7 @@ function Header (){
                                 </ul>
 
                             </a></li>
-                        <li><NavLink to="/Cadastrar_Usuario">Cadastrar Usuario</NavLink></li>  
+                        
                         <li className="opcao-configurar">
                             <a className="configurar-obras" to="#">Homenagens
 
@@ -106,7 +109,9 @@ function Header (){
                                     <li><NavLink to="/Deletar_Obras" >DELETAR HOMENAGENS</NavLink></li>
                                 </ul>
 
-                            </a></li> 
+                            </a>
+                        </li> 
+                        <li><NavLink to="/Cadastrar_Usuario">Cadastrar Usuario</NavLink></li>  
                     </ul>
 
                     <div className="logout">

@@ -92,7 +92,6 @@ export const DeletarObras = () => {
             }else{
                 setCarregando(true)
                 setObraNaoEncontrada(false)
-                
                 setPegarObrasPorUsuario(res.data)
 
 
@@ -156,7 +155,7 @@ export const DeletarObras = () => {
                                 ObrasPorUsuario.map((item, index) => (
                                     <>
                                     {idMarcado === item.id_obra?(
-                                        <div className="main-deletar-obras-container-obras-container">
+                                        <div className="main-deletar-obras-container-obras-container" key={index}>
                                         <div className="main-deletar-obras-container-obras-container-check">
                                             <ImRadioChecked onClick={() => marcarObra(item.id_obra)}/>
                                         </div>

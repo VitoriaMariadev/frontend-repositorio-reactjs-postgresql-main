@@ -22,9 +22,10 @@
   padding-left: 5%;
 }
 
-.container-logo img {
+.container-logo > a > img {
   width: 30%;
   min-width: 130px;
+  cursor: pointer;
 }
 
 .container-navbar {
