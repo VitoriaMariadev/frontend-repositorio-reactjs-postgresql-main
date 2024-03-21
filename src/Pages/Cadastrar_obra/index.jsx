@@ -49,15 +49,13 @@ export const CadastrarObras = () => {
         const dataHora = new Date()
         const novaDescricao = descricao.replace(/\n/g, "<br />")
         const novoResumo = resumo.replace(/\n/g, "<br />")
-        const dataFormatada = new Date(dataCricao);
-        console.log(dataFormatada)
 
         const data = {
             titulo,
             descricao:novaDescricao,
             resumo:novoResumo,
             data_publi:dataHora.toLocaleString('pt-BR', { timezone: 'UTC' }),
-            data_criacao:dataFormatada.toLocaleDateString('pt-BR', {timeZone: 'UTC'}),
+            data_criacao:dataCricao,
             autor: listaAutores,
             assunto:listaAssuntos,
             link: listaLinks,
@@ -486,7 +484,7 @@ export const CadastrarObras = () => {
 
                             <div className="main-cadastrar-obras-container-formulario-esquerda-data">
                                 <p>Data da obra</p>
-                                <input type="date" value={dataCricao} onChange={(e) => setData(e.target.value)}/>
+                                <input type="text" value={dataCricao} onChange={(e) => setData(e.target.value)}/>
 
                             </div>
 

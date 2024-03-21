@@ -57,8 +57,7 @@ export const EditarObrasFormulario = () => {
             setlistaLinks(res.data.links.split(','))
             setListaAutores(res.data.autores.split(','))
             setListaAssuntos(res.data.assuntos.split(','))
-            const novaDataCriacao = convertendoData(res.data.data_criacao)
-            setData(novaDataCriacao)
+            setData(res.data.data_criacao)
 
         } catch (error) {
             console.log(error)
@@ -72,7 +71,6 @@ export const EditarObrasFormulario = () => {
         const dataHora = new Date()
         const novaDescricao = descricao.replace(/\n/g, "<br />")
         const novoResumo = resumo.replace(/\n/g, "<br />")
-        const dataFormatada = new Date(dataCricao);
 
         const data = {
             id_obra:parseInt(id_obra),
@@ -85,7 +83,7 @@ export const EditarObrasFormulario = () => {
             link: listaLinks,
             img: listaImagens,
             usuario:parseInt(idUsuario),
-            data_criacao:dataFormatada.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
+            data_criacao:dataCricao
         }
 
         console.log(data)
@@ -489,7 +487,7 @@ export const EditarObrasFormulario = () => {
 
                             <div className="main-editar-formulario-obras-container-formulario-esquerda-data">
                                 <p>Data da obra</p>
-                                <input type="date" value={dataCricao} onChange={(e) => setData(e.target.value)}/>
+                                <input type="text" value={dataCricao} onChange={(e) => setData(e.target.value)}/>
 
                             </div>
 
